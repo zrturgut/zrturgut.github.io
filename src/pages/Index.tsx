@@ -5,7 +5,7 @@ import Navigation from "@/components/Navigation";
 import { resumeData, sectionBackgrounds } from "@/data/resume";
 import { translations, Language } from "@/data/translations";
 import { ChevronRight, Eye, Briefcase, Zap } from "lucide-react";
-import SkillsGraph from "@/components/SkillsGraph";
+import SkillsGrid from "@/components/SkillsGrid";
 import ProjectModal from "@/components/ProjectModal";
 import AIStrategyGame from "@/components/AIStrategyGame";
 
@@ -248,22 +248,8 @@ const Index = () => {
                 subtitle={t.cards.skills.subtitle}
                 backgroundImage={sectionBackgrounds.skills}
               >
-                <div className="w-full h-[80vh] min-h-[600px] border border-white/10 rounded-3xl bg-black/40 backdrop-blur-sm relative overflow-hidden">
-                  <div className="absolute top-4 right-4 z-10 flex flex-wrap gap-2 justify-end pointer-events-none">
-                    <div className="px-3 py-1 bg-black/50 backdrop-blur rounded-full border border-white/10 text-[10px] text-gray-400 flex items-center">
-                      <span className="w-2 h-2 bg-purple-500 rounded-full inline-block mr-2" />Languages
-                    </div>
-                    <div className="px-3 py-1 bg-black/50 backdrop-blur rounded-full border border-white/10 text-[10px] text-gray-400 flex items-center">
-                      <span className="w-2 h-2 bg-yellow-500 rounded-full inline-block mr-2" />AI/ML
-                    </div>
-                    <div className="px-3 py-1 bg-black/50 backdrop-blur rounded-full border border-white/10 text-[10px] text-gray-400 flex items-center">
-                      <span className="w-2 h-2 bg-blue-500 rounded-full inline-block mr-2" />Tools
-                    </div>
-                  </div>
-                  <p className="absolute bottom-4 left-0 right-0 text-center text-xs text-gray-500 font-mono uppercase tracking-widest pointer-events-none">
-                    Interactive Network • Drag & Click nodes to explore
-                  </p>
-                  <SkillsGraph />
+                <div className="min-h-[80vh] flex items-center justify-center">
+                  <SkillsGrid />
                 </div>
               </PortfolioSection>
 
