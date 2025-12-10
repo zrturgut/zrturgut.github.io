@@ -1,9 +1,129 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import ThreeBackground from "@/components/ThreeBackground";
 import Navigation from "@/components/Navigation";
 import { resumeData, sectionBackgrounds } from "@/data/resume";
 import { Code2, GraduationCap, Briefcase, Terminal } from "lucide-react";
+
+// --- Components ---
+
+const CustomCursor = () => {
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+
+  const springConfig = { damping: 25, stiffness: 700 };
+  const cursorXSpring = useSpring(cursorX, springConfig);
+  const cursorYSpring = useSpring(cursorY, springConfig);
+
+  useEffect(() => {
+    const moveCursor = (e: MouseEvent) => {
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", moveCursor);
+    return () => window.removeEventListener("mousemove", moveCursor);
+  }, []);
+
+  return (
+    <>
+      <motion.div
+        className="fixed top-0 left-0 w-4 h-4 rounded-full bg-purple-500 pointer-events-none z-[9999] mix-blend-difference hidden md:block"
+        style={{
+          translateX: cursorXSpring,
+          translateY: cursorYSpring,
+          marginTop: -8, // center the 16px div (w-4)
+          marginLeft: -8,
+        }}
+      />
+      <motion.div
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-white/50 pointer-events-none z-[9998] mix-blend-difference hidden md:block"
+        style={{
+          translateX: cursorXSpring,
+          translateY: cursorYSpring,
+          marginTop: -16, // center the 32px div (w-8)
+          marginLeft: -16,
+        }}
+        transition={{ duration: 0.1 }}
+      />
+    </>
+  );
+};
+
+const Typewriter = ({ text, delay = 0 }: { text: string; delay?: number }) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setStarted(true);
+    }, delay * 1000);
+    return () => clearTimeout(timeout);
+  }, [delay]);
+
+  useEffect(() => {
+    if (!started) return;
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < text.length) {
+        setDisplayedText((prev) => prev + text.charAt(index));
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 50); // Typing speed
+    return () => clearInterval(interval);
+  }, [text, started]);
+
+  return <span className="font-mono">{displayedText}<span className="animate-pulse">_</span></span>;
+};
+
+const GlitchText = ({ text }: { text: React.ReactNode }) => {
+  return (
+    <div className="relative group inline-block">
+      <span className="relative z-10">{text}</span>
+      <span className="absolute top-0 left-0 -z-10 w-full h-full text-red-500 opacity-0 group-hover:opacity-70 group-hover:translate-x-[2px] transition-all duration-100 ease-linear select-none">{text}</span>
+      <span className="absolute top-0 left-0 -z-10 w-full h-full text-blue-500 opacity-0 group-hover:opacity-70 group-hover:-translate-x-[2px] transition-all duration-100 ease-linear select-none">{text}</span>
+    </div>
+  );
+};
+
+// 3D Tilt Card Component
+const TiltCard = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseX = useSpring(x, { stiffness: 500, damping: 100 });
+  const mouseY = useSpring(y, { stiffness: 500, damping: 100 });
+
+  const rotateX = useTransform(mouseY, [-0.5, 0.5], ["7deg", "-7deg"]);
+  const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-7deg", "7deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseXFromCenter = e.clientX - rect.left - width / 2;
+    const mouseYFromCenter = e.clientY - rect.top - height / 2;
+    x.set(mouseXFromCenter / width);
+    y.set(mouseYFromCenter / height);
+  }
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  }
+
+  return (
+    <motion.div
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 interface CardProps {
   index: number;
@@ -89,8 +209,9 @@ const Index = () => {
   const [showLanding, setShowLanding] = useState(true);
 
   return (
-    <div className="bg-black text-white relative min-h-screen font-sans selection:bg-purple-500/30">
-      <div className="fixed inset-0 z-0">
+    <div className="bg-black text-white relative min-h-screen font-sans selection:bg-purple-500/30 overflow-hidden">
+      <CustomCursor />
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <ThreeBackground />
       </div>
 
@@ -102,7 +223,7 @@ const Index = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
             transition={{ duration: 1 }}
-            className="relative z-50 h-screen flex flex-col items-center justify-center p-4"
+            className="relative z-50 h-screen flex flex-col items-center justify-center p-4 cursor-default"
           >
             <motion.div
               initial={{ y: 20, opacity: 0 }}
@@ -111,21 +232,19 @@ const Index = () => {
               className="text-center space-y-6"
             >
               <h1 className="text-5xl md:text-8xl font-bold tracking-[0.2em] bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/40">
-                ZEKERIYYA
-                <br />
-                TURGUT
+                <GlitchText text={<>ZEKERIYYA<br />TURGUT</>} />
               </h1>
-              <p className="text-lg md:text-2xl text-purple-200/50 tracking-[0.5em] font-light uppercase">
-                AI Engineer & Researcher
+              <p className="text-lg md:text-2xl text-purple-200/50 tracking-[0.5em] font-light uppercase h-8">
+                <Typewriter text="AI Engineer & Researcher" delay={1.5} />
               </p>
             </motion.div>
 
             <motion.button
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1.5, duration: 1 }}
+              transition={{ delay: 3.5, duration: 1 }}
               onClick={() => setShowLanding(false)}
-              className="mt-16 px-8 py-3 rounded-full border border-white/10 hover:border-purple-500/50 bg-white/5 hover:bg-white/10 transition-all duration-500 text-sm tracking-widest uppercase text-gray-400 hover:text-white hover:scale-105"
+              className="mt-16 px-8 py-3 rounded-full border border-white/10 hover:border-purple-500/50 bg-white/5 hover:bg-white/10 transition-all duration-500 text-sm tracking-widest uppercase text-gray-400 hover:text-white hover:scale-105 z-50"
             >
               Enter Portfolio
             </motion.button>
@@ -138,10 +257,11 @@ const Index = () => {
             transition={{ duration: 1 }}
             className="flex flex-col min-h-screen"
           >
-            <Navigation />
+            <Navigation onBackToHome={() => setShowLanding(true)} />
             <main className="relative z-10 container mx-auto px-4 py-32 flex-grow h-[120vh]">
               <div className="flex flex-col md:flex-row h-full gap-4 md:gap-0 border border-white/10 rounded-3xl overflow-hidden bg-black/40 backdrop-blur-xl shadow-2xl ring-1 ring-white/5">
-                {/* ... Project Card ... */}
+
+                {/* PROJECTS */}
                 <Card
                   index={0}
                   title="Projects"
@@ -153,43 +273,45 @@ const Index = () => {
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {resumeData.projects.map((project, i) => (
-                      <div key={i} className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-500">
-                        {project.gif && (
-                          <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
-                            <img src={project.gif} alt="" className="w-full h-full object-cover" />
-                          </div>
-                        )}
-                        <div className="relative z-20 p-8 h-full flex flex-col">
-                          <div className="mb-4">
-                            <h3 className="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors mb-2">{project.title}</h3>
-                            {project.subtitle && <span className="inline-block px-3 py-1 bg-purple-500/20 text-purple-200 text-xs font-mono rounded-full border border-purple-500/20">{project.subtitle}</span>}
+                      <TiltCard key={i} className="h-full">
+                        <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-500 h-full">
+                          {project.gif && (
+                            <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+                              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
+                              <img src={project.gif} alt="" className="w-full h-full object-cover" />
+                            </div>
+                          )}
+                          <div className="relative z-20 p-8 h-full flex flex-col">
+                            <div className="mb-4">
+                              <h3 className="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors mb-2">{project.title}</h3>
+                              {project.subtitle && <span className="inline-block px-3 py-1 bg-purple-500/20 text-purple-200 text-xs font-mono rounded-full border border-purple-500/20">{project.subtitle}</span>}
 
-                            {project.technologies && (
-                              <div className="flex flex-wrap gap-2 mt-4">
-                                {project.technologies.map((tech, t) => (
-                                  <span key={t} className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded border border-white/10 bg-black/50 text-gray-400 group-hover:border-purple-500/30 group-hover:text-purple-300 transition-colors">
-                                    {tech}
-                                  </span>
-                                ))}
-                              </div>
-                            )}
+                              {project.technologies && (
+                                <div className="flex flex-wrap gap-2 mt-4">
+                                  {project.technologies.map((tech, t) => (
+                                    <span key={t} className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded border border-white/10 bg-black/50 text-gray-400 group-hover:border-purple-500/30 group-hover:text-purple-300 transition-colors">
+                                      {tech}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                            <ul className="space-y-3 text-gray-400 group-hover:text-gray-200 transition-colors mt-auto">
+                              {project.details.map((detail, j) => (
+                                <li key={j} className="flex gap-3 text-sm leading-relaxed">
+                                  <span className="text-purple-500 mt-1.5 opacity-50">•</span>
+                                  <span>{detail}</span>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
-                          <ul className="space-y-3 text-gray-400 group-hover:text-gray-200 transition-colors mt-auto">
-                            {project.details.map((detail, j) => (
-                              <li key={j} className="flex gap-3 text-sm leading-relaxed">
-                                <span className="text-purple-500 mt-1.5 opacity-50">•</span>
-                                <span>{detail}</span>
-                              </li>
-                            ))}
-                          </ul>
                         </div>
-                      </div>
+                      </TiltCard>
                     ))}
                   </div>
                 </Card>
 
-                {/* ... Experience Card ... */}
+                {/* EXPERIENCE */}
                 <Card
                   index={1}
                   title="Experience"
@@ -219,7 +341,7 @@ const Index = () => {
                   </div>
                 </Card>
 
-                {/* ... Education Card ... */}
+                {/* EDUCATION */}
                 <Card
                   index={2}
                   title="Education"
@@ -261,7 +383,7 @@ const Index = () => {
                   </div>
                 </Card>
 
-                {/* ... Skills Card (Refactored) ... */}
+                {/* SKILLS */}
                 <Card
                   index={3}
                   title="Skills"
@@ -291,7 +413,6 @@ const Index = () => {
                       {/* AI / ML Column */}
                       <div>
                         <h3 className="text-sm uppercase tracking-[0.2em] text-gray-400 mb-8 border-b border-gray-800 pb-2 flex items-center gap-2">
-                          {/* Brain icon logic would go here, using a generic Code for now if not imported */}
                           <Code2 className="w-4 h-4" /> AI / ML
                         </h3>
                         <ul className="space-y-4">
@@ -325,13 +446,9 @@ const Index = () => {
                       <h3 className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-6 text-center">Spoken Languages</h3>
                       <div className="flex flex-wrap justify-center gap-12 md:gap-24">
                         {resumeData.technicalSkills.spokenLanguages.map((langString, i) => {
-                          // "Turkish (Native) 🇹🇷" -> split by space? 
-                          // Let's assume the flag is at the end. 
-                          // Actually, let's just parse it based on the previous edit I made.
-                          // I know the data is "Turkish (Native) 🇹🇷"
                           const parts = langString.split(" ");
-                          const flag = parts[parts.length - 1]; // The emoji
-                          const name = parts[0]; // Turkish
+                          const flag = parts[parts.length - 1];
+                          const name = parts[0];
 
                           return (
                             <div key={i} className="flex flex-col items-center gap-4 group cursor-default">
@@ -344,6 +461,7 @@ const Index = () => {
                     </div>
                   </div>
                 </Card>
+
               </div>
             </main>
           </motion.div>
@@ -352,5 +470,4 @@ const Index = () => {
     </div>
   );
 };
-
 export default Index;

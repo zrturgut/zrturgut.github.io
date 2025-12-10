@@ -1,9 +1,9 @@
 export const sectionBackgrounds = {
-    projects: "https://media.giphy.com/media/kBJyD2u52tDHy/giphy.gif", // Futuristic HUD
-    research: "https://media.giphy.com/media/QtX9S899n88SI/giphy.gif", // Neural Network
-    experience: "https://media.giphy.com/media/J1QA62A0Y1hIc/giphy.gif", // City Lights
-    education: "https://media.giphy.com/media/l0HlO7m3c3yZj5vZS/giphy.gif", // Space
-    skills: "https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif", // Matrix
+    projects: "https://i.giphy.com/media/L8K62iTDkzGX6/giphy.webp", // Coding Matrix
+    research: "https://i.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.webp", // Neural Network
+    experience: "https://i.giphy.com/media/3o7TKsAds5tX5uXJqU/giphy.webp", // City Time Lapse
+    education: "https://i.giphy.com/media/U3qYN8S0j3bpK/giphy.webp", // Space Nebula
+    skills: "https://i.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.webp", // Digital Tech
 };
 
 export const resumeData = {
@@ -78,7 +78,7 @@ export const resumeData = {
         {
             title: "Generative AI Project Builder",
             subtitle: "Hackathon Hacker – 2nd Place at WTC 40 Hour Hackathon",
-            gif: "https://media.giphy.com/media/kBJyD2u52tDHy/giphy.gif",
+            gif: "https://i.giphy.com/media/26tn33aiTi1jkl6H6/giphy.webp",
             technologies: ["React", "TypeScript", "OpenAI API", "Tailwind"],
             details: [
                 "Created an AI assistant that instantly generates complete hackathon projects including architecture, backend, frontend, tests and documentation.",
@@ -88,7 +88,7 @@ export const resumeData = {
         {
             title: "Human AI Interaction Prototype",
             subtitle: "",
-            gif: "https://media.giphy.com/media/QtX9S899n88SI/giphy.gif",
+            gif: "https://i.giphy.com/media/NvVO0lqVd9yP6/giphy.webp",
             technologies: ["Python", "Kotlin", "WebSockets", "Furhat SDK"],
             details: [
                 "Built a working prototype of a Furhat social robot, focusing on natural interaction and clear conversational behavior.",
@@ -98,7 +98,7 @@ export const resumeData = {
         {
             title: "Liver Disease Classification with Machine Learning",
             subtitle: "Research Project",
-            gif: "https://media.giphy.com/media/J1QA62A0Y1hIc/giphy.gif",
+            gif: "https://i.giphy.com/media/TqiwHbFBaZ4ti/giphy.webp",
             technologies: ["Python", "scikit-learn", "Pandas", "Matplotlib"],
             details: [
                 "Developed classification models (Random Forest, Gradient Boosting) using Python, scikit learn, pandas, Matplotlib on more than 3500 samples.",
@@ -108,7 +108,7 @@ export const resumeData = {
         {
             title: "Text Mining for AI: NLP Model Development",
             subtitle: "Research Project",
-            gif: "https://media.giphy.com/media/l0HlO7m3c3yZj5vZS/giphy.gif",
+            gif: "https://i.giphy.com/media/U3qYN8S0j3bpK/giphy.webp",
             technologies: ["Python", "BERT", "spaCy", "NLTK", "PyTorch"],
             details: [
                 "Worked in a team to build models for sentiment analysis, topic classification and named entity recognition.",
