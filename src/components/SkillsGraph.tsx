@@ -100,27 +100,49 @@ const SkillsGraph = () => {
 
             {/* Overlay Info Panel */}
             <AnimatePresence>
-                {highlightedNode && highlightedNode.group === "skill" && (
+                {highlightedNode && (
                     <motion.div
+                        key={highlightedNode.id}
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 20 }}
-                        className="absolute right-4 top-4 w-64 p-4 rounded-xl bg-black/80 backdrop-blur-xl border border-white/20 shadow-2xl z-20 pointer-events-none"
+                        className="absolute right-4 top-4 w-64 p-4 rounded-xl bg-black/80 backdrop-blur-xl border border-white/20 shadow-2xl z-20 pointer-events-auto max-h-[90%] overflow-y-auto"
                     >
-                        <h3 className="text-xl font-bold text-white mb-2">{highlightedNode.label}</h3>
-                        <p className="text-xs text-gray-400 uppercase tracking-widest mb-4">Related Projects</p>
+                        <h3 className="text-xl font-bold text-white mb-1">{highlightedNode.label}</h3>
+                        <p className="text-xs text-gray-400 uppercase tracking-widest mb-4 border-b border-white/10 pb-2">
+                            {highlightedNode.group === 'skill' ? 'Related Projects' :
+                                highlightedNode.group === 'category' ? 'Included Skills' : 'Overview'}
+                        </p>
 
-                        {relatedProjects.length > 0 ? (
-                            <ul className="space-y-3 pointer-events-auto">
-                                {relatedProjects.map(p => (
-                                    <li key={p.title} className="text-sm text-gray-300 border-l-2 border-purple-500 pl-3">
-                                        <div className="font-bold text-purple-200">{p.title}</div>
-                                        <div className="text-xs text-gray-500 line-clamp-2">{p.details[0]}</div>
-                                    </li>
-                                ))}
+                        {highlightedNode.group === 'skill' ? (
+                            relatedProjects.length > 0 ? (
+                                <ul className="space-y-3">
+                                    {relatedProjects.map(p => (
+                                        <li key={p.title} className="text-sm text-gray-300 border-l-2 border-purple-500 pl-3">
+                                            <div className="font-bold text-purple-200">{p.title}</div>
+                                            <div className="text-xs text-gray-500 line-clamp-2">{p.details[0]}</div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p className="text-sm text-gray-500 italic">No direct project links modeled for this skill.</p>
+                            )
+                        ) : highlightedNode.group === 'category' ? (
+                            <ul className="flex flex-wrap gap-2">
+                                {graphData.nodes
+                                    .filter((n: any) => n.group === 'skill' && n.color === highlightedNode.color)
+                                    .map((n: any) => (
+                                        <li key={n.id} className="text-xs px-2 py-1 rounded bg-white/10 text-gray-300 border border-white/10">
+                                            {n.label}
+                                        </li>
+                                    ))
+                                }
                             </ul>
                         ) : (
-                            <p className="text-sm text-gray-500 italic">No direct project links found in resume data for this exact skill name.</p>
+                            <div className="text-sm text-gray-300">
+                                <p className="mb-2">Central Node</p>
+                                <p className="text-xs text-gray-500">Connects to {graphData.nodes.length - 1} data points across Languages, AI/ML, and Tools.</p>
+                            </div>
                         )}
                     </motion.div>
                 )}
