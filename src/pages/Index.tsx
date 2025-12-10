@@ -231,11 +231,11 @@ const Index = () => {
               transition={{ delay: 0.5, duration: 0.8 }}
               className="text-center space-y-6"
             >
-              <h1 className="text-5xl md:text-8xl font-bold tracking-[0.2em] bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/40">
-                <GlitchText text={<>ZEKERIYYA<br />TURGUT</>} />
+              <h1 className="text-5xl md:text-8xl font-bold tracking-[0.2em] bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/40 lowercase">
+                <GlitchText text="zekeriyya" />
               </h1>
-              <p className="text-lg md:text-2xl text-purple-200/50 tracking-[0.5em] font-light uppercase h-8">
-                <Typewriter text="AI Engineer & Researcher" delay={1.5} />
+              <p className="text-lg md:text-2xl text-purple-200/50 tracking-[0.5em] font-light uppercase h-8 lowercase">
+                <Typewriter text="ai engineer" delay={1.5} />
               </p>
             </motion.div>
 
@@ -244,9 +244,9 @@ const Index = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 3.5, duration: 1 }}
               onClick={() => setShowLanding(false)}
-              className="mt-16 px-8 py-3 rounded-full border border-white/10 hover:border-purple-500/50 bg-white/5 hover:bg-white/10 transition-all duration-500 text-sm tracking-widest uppercase text-gray-400 hover:text-white hover:scale-105 z-50"
+              className="mt-16 px-8 py-3 rounded-full border border-white/10 hover:border-purple-500/50 bg-white/5 hover:bg-white/10 transition-all duration-500 text-sm tracking-widest lowercase text-gray-400 hover:text-white hover:scale-105 z-50"
             >
-              Enter Portfolio
+              enter portfolio
             </motion.button>
           </motion.div>
         ) : (
