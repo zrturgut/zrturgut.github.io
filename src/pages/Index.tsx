@@ -10,10 +10,11 @@ const Index = () => {
     <div className="bg-white text-neutral-900 min-h-screen font-sans selection:bg-gray-200">
 
       {/* 1. Header & Navigation */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="text-xl font-bold tracking-tighter cursor-pointer">iamzekeriyya</div>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
+          <a href="#" className="text-xl font-bold tracking-tighter cursor-pointer">iamzekeriyya</a>
 
+          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             <a href="#hero" className="text-sm font-medium tracking-widest uppercase hover:text-gray-500 transition-colors">Home</a>
             <a href="#projects" className="text-sm font-medium tracking-widest uppercase hover:text-gray-500 transition-colors">Work</a>
@@ -21,7 +22,14 @@ const Index = () => {
             <a href="#contact" className="text-sm font-medium tracking-widest uppercase hover:text-gray-500 transition-colors">Contact</a>
           </nav>
 
-          <div className="flex items-center gap-2">
+          {/* Mobile Nav (Simple horizontal scroll or wrap) */}
+          <nav className="flex md:hidden items-center gap-4 overflow-x-auto no-scrollbar pr-4">
+            <a href="#projects" className="text-xs font-medium tracking-widest uppercase hover:text-gray-500">Work</a>
+            <a href="#about" className="text-xs font-medium tracking-widest uppercase hover:text-gray-500">About</a>
+            <a href="#contact" className="text-xs font-medium tracking-widest uppercase hover:text-gray-500">Contact</a>
+          </nav>
+
+          <div className="hidden md:flex items-center gap-2">
             {(['nl', 'en', 'tr', 'es']).map((l: any) => (
               <button
                 key={l}
@@ -58,13 +66,18 @@ const Index = () => {
             {resumeData.projects.map((project, i) => (
               <div key={i} className="group cursor-pointer">
                 <div className="aspect-[4/3] bg-gray-200 overflow-hidden mb-6 relative">
-                  {/* Simple Image Placeholder or Actual Image */}
-                  <img
-                    src={project.images[0] || "/placeholder.jpg"}
-                    alt={project.title}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
-                    loading="lazy"
-                  />
+                  {project.images && project.images.length > 0 ? (
+                    <img
+                      src={project.images[0]}
+                      alt={project.title}
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-300">
+                      <span className="font-mono text-xs uppercase">No Preview</span>
+                    </div>
+                  )}
                 </div>
                 <div className="flex items-baseline justify-between">
                   <h3 className="text-2xl font-bold group-hover:underline decoration-1 underline-offset-4 transition-all">{project.title}</h3>
