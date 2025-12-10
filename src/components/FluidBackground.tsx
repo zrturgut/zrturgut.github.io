@@ -95,7 +95,7 @@ const FluidMesh = () => {
 const FluidBackground = () => {
     return (
         <div className="fixed inset-0 z-0 bg-black">
-            <Canvas camera={{ position: [0, 0, 1] }}>
+            <Canvas camera={{ position: [0, 0, 1] }} dpr={[1, 1.5]}>
                 <FluidMesh />
             </Canvas>
         </div>

@@ -28,7 +28,7 @@ const Index = () => {
   const t = translations[lang];
 
   return (
-    <ReactLenis root>
+    <ReactLenis root options={{ lerp: 0.1, duration: 0.8, smoothTouch: false }}>
       <div className="bg-black text-white relative min-h-screen font-sans selection:bg-purple-500/30 overflow-x-hidden">
         <ProgressBar />
         <CustomCursor />
