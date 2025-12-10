@@ -1,16 +1,15 @@
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThreeBackground from "@/components/ThreeBackground";
 import Navigation from "@/components/Navigation";
 import { resumeData, sectionBackgrounds } from "@/data/resume";
-import { ArrowRight, Github, ExternalLink, Code2, GraduationCap, Briefcase, User, Terminal, Brain } from "lucide-react";
+import { Code2, GraduationCap, Briefcase, Terminal } from "lucide-react";
 
 interface CardProps {
   index: number;
   title: string;
   subtitle: string;
-  icon: any;
+  icon: React.ElementType;
   isActive: boolean;
   onClick: () => void;
   backgroundImage: string;
@@ -30,7 +29,6 @@ const Card = ({ index, title, subtitle, icon: Icon, isActive, onClick, backgroun
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
     >
-      {/* Background GIF */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-black/80 z-10" />
         <img

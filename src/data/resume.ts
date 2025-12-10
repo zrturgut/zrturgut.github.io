@@ -1,10 +1,9 @@
-// Section Background GIFs
 export const sectionBackgrounds = {
-    projects: "https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif", // Matrix/Code
-    research: "https://media.giphy.com/media/QHE5gWI0QjqF2/giphy.gif", // Nodes/Network
-    experience: "https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif", // City Lights
-    education: "https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif", // Abstract
-    skills: "https://media.giphy.com/media/BJEqM6kZKqJJC/giphy.gif", // Tech/HUD
+    projects: "https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif",
+    research: "https://media.giphy.com/media/QHE5gWI0QjqF2/giphy.gif",
+    experience: "https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif",
+    education: "https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif",
+    skills: "https://media.giphy.com/media/BJEqM6kZKqJJC/giphy.gif",
 };
 
 export const resumeData = {
