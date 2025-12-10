@@ -60,11 +60,20 @@ const SkillsGraph = () => {
                 });
             }
         };
-        window.addEventListener('resize', updateDim);
+
+        // Initial update
         updateDim();
-        // Delay to ensure container is rendered fully?
-        setTimeout(updateDim, 500);
-        return () => window.removeEventListener('resize', updateDim);
+
+        // Use ResizeObserver for robust container resizing
+        const observer = new ResizeObserver(() => {
+            updateDim();
+        });
+
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
+        }
+
+        return () => observer.disconnect();
     }, []);
 
     // Find Related Projects

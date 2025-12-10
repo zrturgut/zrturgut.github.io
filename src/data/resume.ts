@@ -10,7 +10,7 @@ export const resumeData = {
     education: [
         {
             institution: "Vrije Universiteit Amsterdam",
-            location: "Amsterdam, Netherlands",
+            location: "Amsterdam, Netherlands 🇳🇱",
             degree: "BSc Artificial Intelligence (Minor in Spanish)",
             period: "2023 – 2026",
             details: [
@@ -19,7 +19,7 @@ export const resumeData = {
         },
         {
             institution: "CBS Summer School",
-            location: "CBS - Copenhagen",
+            location: "CBS - Copenhagen 🇩🇰",
             degree: "Business Responses to Climate Change",
             period: "June 2025 – July 2025",
             details: [
@@ -30,7 +30,7 @@ export const resumeData = {
         },
         {
             institution: "Universit`a degli Studi di Napoli Federico II",
-            location: "Naples, Italy",
+            location: "Naples, Italy 🇮🇹",
             degree: "Erasmus+ Workshop: Governing Urban Metabolism",
             period: "May 2024",
             details: [
@@ -40,7 +40,7 @@ export const resumeData = {
         },
         {
             institution: "Istanbul University",
-            location: "Istanbul, Turkey",
+            location: "Istanbul, Turkey 🇹🇷",
             degree: "BSc Law",
             period: "2017 – 2020",
             details: []
