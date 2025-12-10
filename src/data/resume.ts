@@ -126,9 +126,9 @@ export const resumeData = {
         }
     ],
     technicalSkills: {
-        languages: ["Python", "R", "SQL", "Prolog", "Bash"],
-        tools: ["Git", "VS Code", "PyCharm", "Jupyter", "Neo4j", "GraphDB", "Power BI"],
-        libraries: ["NumPy", "pandas", "scikit learn", "PyTorch", "spaCy", "Matplotlib"],
+        languages: ["Python 🐍", "R 📊", "SQL 🗄️", "Prolog 🧠", "Bash 🐚"],
+        tools: ["Git 🐙", "VS Code 🆚", "PyCharm 🐍", "Jupyter 🪐", "Neo4j 🕸️", "GraphDB 🗂️", "Power BI 📈"],
+        libraries: ["NumPy 🔢", "pandas 🐼", "scikit learn 🤖", "PyTorch 🔥", "spaCy 📝", "Matplotlib 📉"],
         spokenLanguages: ["Turkish (Native) 🇹🇷", "English (C1) 🇬🇧", "Dutch (B2) 🇳🇱", "Spanish (A2) 🇪🇸"]
     },
     achievements: [
