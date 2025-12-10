@@ -15,6 +15,8 @@ import TiltCard from "@/components/ui/TiltCard";
 import CustomCursor from "@/components/ui/CustomCursor";
 import GlitchText from "@/components/ui/GlitchText";
 import Typewriter from "@/components/ui/Typewriter";
+import Marquee from "@/components/ui/Marquee";
+import StickyCTA, { ProgressBar } from "@/components/ui/StickyCTA";
 
 const Index = () => {
   const [showLanding, setShowLanding] = useState(true);
@@ -25,12 +27,19 @@ const Index = () => {
 
   return (
     <div className="bg-black text-white relative min-h-screen font-sans selection:bg-purple-500/30 overflow-x-hidden">
+      <ProgressBar />
       <CustomCursor />
+      <StickyCTA />
+
       {showGame && <AIStrategyGame onClose={() => setShowGame(false)} />}
       <ProjectModal isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} project={selectedProject} />
 
       <div className="fixed inset-0 z-0 pointer-events-none">
         <ThreeBackground />
+      </div>
+
+      <div className="fixed top-0 w-full z-40 mt-1 pointer-events-none opacity-50">
+        {/* Optional top decoration */}
       </div>
 
       <AnimatePresence mode="wait">
@@ -93,6 +102,10 @@ const Index = () => {
               setLang={setLang}
               onOpenGame={() => setShowGame(true)}
             />
+
+            <div className="pt-24 pb-4">
+              <Marquee />
+            </div>
 
             <main className="relative z-10 w-full">
 

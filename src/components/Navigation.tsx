@@ -41,7 +41,7 @@ const Navigation = ({ onBackToHome, lang, setLang, onOpenGame }: NavigationProps
                         <button
                             key={l}
                             onClick={() => setLang(l)}
-                            className={`text-xs font-mono uppercase transition-colors ${lang === l ? 'text-purple-400 font-bold' : 'text-gray-500 hover:text-white'}`}
+                            className={`text-lg px-2 font-mono uppercase transition-colors ${lang === l ? 'text-purple-400 font-bold' : 'text-gray-500 hover:text-white'}`}
                         >
                             {l}
                         </button>
