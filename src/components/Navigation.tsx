@@ -10,84 +10,37 @@ interface NavigationProps {
 
 const Navigation = ({ onBackToHome, lang, setLang, onOpenGame }: NavigationProps) => {
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-8 pointer-events-none">
-            <div className="flex items-center gap-4 pointer-events-auto">
+        <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center p-6 bg-white/80 backdrop-blur-md border-b border-gray-100">
+            {/* Minimal Centered Nav */}
+            <div className="flex items-center gap-8 md:gap-12">
                 <button
                     onClick={onBackToHome}
-                    className="p-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 group"
-                    aria-label="Go Home"
+                    className="text-sm font-medium tracking-widest uppercase hover:text-gray-600 transition-colors"
                 >
-                    <Home className="w-5 h-5 text-gray-400 group-hover:text-purple-400" />
+                    Home
                 </button>
-                <div onClick={onBackToHome} className="flex flex-col gap-1 cursor-pointer group">
-                    <div className="text-xl font-bold tracking-wider group-hover:text-purple-400 transition-colors lowercase">
-                        zekeriyya
-                    </div>
+                <a href="#projects" className="text-sm font-medium tracking-widest uppercase hover:text-gray-600 transition-colors">Work</a>
 
-                    <div className="flex items-center gap-2 text-xs font-mono text-gray-400">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                        </span>
-                        <span className="lowercase">amsterdam • available</span>
-                    </div>
+                {/* Logo / Name */}
+                <div onClick={onBackToHome} className="text-xl font-bold tracking-tighter cursor-pointer px-4">
+                    iamzekeriyya
                 </div>
+
+                <a href="#about" className="text-sm font-medium tracking-widest uppercase hover:text-gray-600 transition-colors">About</a>
+                <a href="#contact" className="text-sm font-medium tracking-widest uppercase hover:text-gray-600 transition-colors">Contact</a>
             </div>
 
-            <div className="flex items-center gap-4 pointer-events-auto">
-                {/* Language Switcher */}
-                <div className="flex items-center gap-2 mr-4 border-r border-white/10 pr-4">
-                    {(['nl', 'en', 'tr', 'es'] as Language[]).map((l) => (
-                        <button
-                            key={l}
-                            onClick={() => setLang(l)}
-                            className={`text-lg px-2 font-mono uppercase transition-colors ${lang === l ? 'text-purple-400 font-bold' : 'text-gray-500 hover:text-white'}`}
-                        >
-                            {l}
-                        </button>
-                    ))}
-                </div>
-
-                <button
-                    onClick={onOpenGame}
-                    className="p-2 mr-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 group"
-                    aria-label="Play Game"
-                >
-                    <Gamepad2 className="w-5 h-5 text-gray-400 group-hover:text-green-400" />
-                </button>
-
-                <a
-                    href="https://github.com/zrturgut"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 group"
-                    aria-label="GitHub"
-                >
-                    <Github className="w-5 h-5 text-gray-400 group-hover:text-purple-400" />
-                </a>
-                <a
-                    href="https://linkedin.com/in/zrturgut"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 group"
-                    aria-label="LinkedIn"
-                >
-                    <Linkedin className="w-5 h-5 text-gray-400 group-hover:text-purple-400" />
-                </a>
-                <a
-                    href="mailto:zackturgut@gmail.com"
-                    className="p-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 group"
-                    aria-label="Email"
-                >
-                    <Mail className="w-5 h-5 text-gray-400 group-hover:text-purple-400" />
-                </a>
-                <a
-                    href="tel:+31612345678"
-                    className="p-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 group"
-                    aria-label="Phone"
-                >
-                    <Phone className="w-5 h-5 text-gray-400 group-hover:text-purple-400" />
-                </a>
+            {/* Language Switcher - Absolute Right */}
+            <div className="absolute right-8 flex items-center gap-2">
+                {(['nl', 'en', 'tr', 'es'] as Language[]).map((l) => (
+                    <button
+                        key={l}
+                        onClick={() => setLang(l)}
+                        className={`text-xs uppercase font-medium transition-colors ${lang === l ? 'text-black underline decoration-2 underline-offset-4' : 'text-gray-400 hover:text-black'}`}
+                    >
+                        {l}
+                    </button>
+                ))}
             </div>
         </nav>
     );

@@ -1,283 +1,134 @@
+import { resumeData } from "@/data/resume";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import ThreeBackground from "@/components/ThreeBackground";
-import FluidBackground from "@/components/FluidBackground";
-import Navigation from "@/components/Navigation";
-import { resumeData, sectionBackgrounds } from "@/data/resume";
-import { translations, Language } from "@/data/translations";
-import { ChevronRight, Eye, Briefcase, Zap } from "lucide-react";
-import SkillsGrid from "@/components/SkillsGrid";
-import ProjectModal from "@/components/ProjectModal";
-import AIStrategyGame from "@/components/AIStrategyGame";
-import { ReactLenis } from '@studio-freight/react-lenis';
-
-// UI Components
-import PortfolioSection from "@/components/ui/PortfolioSection";
-import TiltCard from "@/components/ui/TiltCard";
-import CustomCursor from "@/components/ui/CustomCursor";
-import GlitchText from "@/components/ui/GlitchText";
-import Typewriter from "@/components/ui/Typewriter";
-import Marquee from "@/components/ui/Marquee";
-import StickyCTA, { ProgressBar } from "@/components/ui/StickyCTA";
+import { translations } from "@/data/translations";
 
 const Index = () => {
-  const [showLanding, setShowLanding] = useState(true);
-  const [lang, setLang] = useState<Language>('nl');
-  const [selectedProject, setSelectedProject] = useState<any>(null);
-  const [showGame, setShowGame] = useState(false);
+  const [lang, setLang] = useState<any>('en');
   const t = translations[lang];
 
   return (
-    <ReactLenis root options={{ lerp: 0.1, duration: 0.8, smoothTouch: false }}>
-      <div className="bg-black text-white relative min-h-screen font-sans selection:bg-purple-500/30 overflow-x-hidden">
-        <ProgressBar />
-        <CustomCursor />
-        <StickyCTA />
+    <div className="bg-white text-neutral-900 min-h-screen font-sans selection:bg-gray-200">
 
-        {showGame && <AIStrategyGame onClose={() => setShowGame(false)} />}
-        <ProjectModal isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} project={selectedProject} />
+      {/* 1. Header & Navigation */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="text-xl font-bold tracking-tighter cursor-pointer">iamzekeriyya</div>
 
-        {/* Global Fluid Background */}
-        <div className="fixed inset-0 z-0 pointer-events-none">
-          <FluidBackground />
-        </div>
+          <nav className="hidden md:flex items-center gap-8">
+            <a href="#hero" className="text-sm font-medium tracking-widest uppercase hover:text-gray-500 transition-colors">Home</a>
+            <a href="#projects" className="text-sm font-medium tracking-widest uppercase hover:text-gray-500 transition-colors">Work</a>
+            <a href="#about" className="text-sm font-medium tracking-widest uppercase hover:text-gray-500 transition-colors">About</a>
+            <a href="#contact" className="text-sm font-medium tracking-widest uppercase hover:text-gray-500 transition-colors">Contact</a>
+          </nav>
 
-        <div className="fixed top-0 w-full z-40 mt-1 pointer-events-none opacity-50">
-          {/* Optional top decoration */}
-        </div>
-
-        <AnimatePresence mode="wait">
-          {showLanding ? (
-            <motion.div
-              key="landing"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0, y: -50, filter: "blur(5px)" }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-              className="relative z-50 h-screen flex flex-col items-center justify-center p-4 cursor-default overflow-hidden"
-            >
-              {/* Massive Kinetic Typography */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2, duration: 1.2, ease: "circOut" }}
-                className="flex flex-col items-center leading-none z-10"
+          <div className="flex items-center gap-2">
+            {(['nl', 'en', 'tr', 'es']).map((l: any) => (
+              <button
+                key={l}
+                onClick={() => setLang(l)}
+                className={`text-xs uppercase font-medium transition-colors ${lang === l ? 'text-black underline decoration-2 underline-offset-4' : 'text-gray-400 hover:text-black'}`}
               >
-                <h1 className="text-[12vw] md:text-[15vw] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-t from-white via-white to-white/50 mix-blend-overlay select-none hover:scale-105 transition-transform duration-700 lowercase">
-                  iamzekeriyya
-                </h1>
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: "100%" }}
-                  transition={{ delay: 1, duration: 1.5 }}
-                  className="h-[2px] bg-white/30 my-4"
-                />
-                <h2 className="text-2xl md:text-4xl font-light tracking-[0.5em] text-white/60 uppercase mix-blend-difference">
-                  {t.role}
-                </h2>
-              </motion.div>
+                {l}
+              </button>
+            ))}
+          </div>
+        </div>
+      </header>
 
-              {/* Minimalist Enter Trigger */}
-              <motion.button
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 2.0, duration: 1 }}
-                onClick={() => setShowLanding(false)}
-                className="absolute bottom-20 group cursor-pointer"
-                aria-label="Enter Portfolio"
-              >
-                <div className="flex flex-col items-center gap-4">
-                  <span className="text-xs font-mono uppercase tracking-[0.3em] text-white/50 group-hover:text-white transition-colors duration-300">Enter System</span>
-                  <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:scale-110 group-hover:border-white transition-all duration-500 bg-white/5 backdrop-blur-sm">
-                    <ChevronRight className="w-5 h-5 text-white/50 group-hover:text-white transition-colors" />
-                  </div>
+      {/* 2. Hero Section */}
+      <section id="hero" className="pt-40 pb-20 px-6 min-h-[80vh] flex flex-col justify-center max-w-7xl mx-auto">
+        <h1 className="text-[10vw] leading-[0.9] font-black tracking-tighter mb-8">
+          DIGITAL <br />
+          <span className="text-gray-300">CRAFTSMAN</span>
+        </h1>
+        <p className="max-w-xl text-xl md:text-2xl text-gray-500 font-light leading-relaxed">
+          I build high-end digital experiences at the intersection of design, motion, and artificial intelligence.
+        </p>
+      </section>
+
+      {/* 3. Projects Grid */}
+      <section id="projects" className="py-20 px-6 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between mb-16">
+            <h2 className="text-4xl font-bold tracking-tight">Selected Work</h2>
+            <span className="text-sm font-mono text-gray-500">( {resumeData.projects.length} )</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16">
+            {resumeData.projects.map((project, i) => (
+              <div key={i} className="group cursor-pointer">
+                <div className="aspect-[4/3] bg-gray-200 overflow-hidden mb-6 relative">
+                  {/* Simple Image Placeholder or Actual Image */}
+                  <img
+                    src={project.images[0] || "/placeholder.jpg"}
+                    alt={project.title}
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                    loading="lazy"
+                  />
                 </div>
-              </motion.button>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="portfolio"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-              className="flex flex-col min-h-screen"
-            >
-              <Navigation
-                onBackToHome={() => setShowLanding(true)}
-                lang={lang}
-                setLang={setLang}
-                onOpenGame={() => setShowGame(true)}
-              />
-
-              <div className="pt-24 pb-4">
-                <Marquee />
+                <div className="flex items-baseline justify-between">
+                  <h3 className="text-2xl font-bold group-hover:underline decoration-1 underline-offset-4 transition-all">{project.title}</h3>
+                  <span className="text-sm text-gray-400 font-mono">{project.subtitle}</span>
+                </div>
+                <div className="mt-2 flex gap-2 flex-wrap">
+                  {project.technologies.slice(0, 3).map(t => (
+                    <span key={t} className="text-xs border border-gray-200 px-2 py-1 rounded text-gray-500">{t}</span>
+                  ))}
+                </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <main className="relative z-10 w-full">
+      {/* 4. About / Experience */}
+      <section id="about" className="py-32 px-6 max-w-4xl mx-auto">
+        <h2 className="text-sm font-mono uppercase tracking-widest text-gray-400 mb-12">About Me</h2>
+        <p className="text-3xl md:text-4xl font-light leading-normal mb-20 text-gray-800">
+          Based in Amsterdam, I specialize in combining robust software engineering with fluid, organic design. My background in law and AI gives me a unique perspective on systems, logic, and creativity.
+        </p>
 
-                {/* 1. PROJECTS SECTION */}
-                <PortfolioSection
-                  id="projects"
-                  index={0}
-                  title={t.cards.projects.title}
-                  subtitle={t.cards.projects.subtitle}
-                  backgroundImage={sectionBackgrounds.projects}
-                >
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {resumeData.projects.map((project, i) => (
-                      <TiltCard key={i} className="h-full min-h-[400px]" onClick={() => setSelectedProject(project)}>
-                        <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-500 h-full cursor-pointer flex flex-col">
-                          {/* Actions */}
-                          <div className="absolute top-4 right-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
-                            <button className="p-2 bg-purple-500/80 backdrop-blur rounded-full text-white shadow-lg hover:bg-purple-400 transition-colors">
-                              <Eye size={16} />
-                            </button>
-                          </div>
+        <div className="space-y-12">
+          <h3 className="text-2xl font-bold">Experience</h3>
+          {resumeData.experience.map((exp, i) => (
+            <div key={i} className="flex flex-col md:flex-row md:items-baseline justify-between border-t border-gray-200 pt-6">
+              <div className="md:w-1/3">
+                <span className="text-lg font-medium">{exp.company}</span>
+                <p className="text-sm text-gray-400">{exp.period}</p>
+              </div>
+              <div className="md:w-2/3 mt-2 md:mt-0">
+                <h4 className="text-lg text-gray-800 mb-2">{exp.role}</h4>
+                <p className="text-gray-500 font-light">{exp.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-                          {project.gif && (
-                            <div className="relative h-48 w-full overflow-hidden border-b border-white/5">
-                              <img src={project.gif} alt="" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                              <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
-                            </div>
-                          )}
+      {/* 5. Contact */}
+      <section id="contact" className="py-32 bg-black text-white px-6">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-[12vw] font-black tracking-tighter leading-none mb-8">
+            GET IN TOUCH
+          </h2>
+          <p className="text-xl text-gray-400 mb-12">Available for select freelance opportunities and collaborations.</p>
 
-                          <div className="relative z-20 p-6 flex flex-col flex-grow">
-                            <div className="mb-4">
-                              <h3 className="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors mb-2">{project.title}</h3>
-                              {project.subtitle && <span className="inline-block px-3 py-1 bg-purple-500/20 text-purple-200 text-xs font-mono rounded-full border border-purple-500/20">{project.subtitle}</span>}
+          <a
+            href="mailto:zackturgut@gmail.com"
+            className="inline-block px-12 py-4 border border-white/20 rounded-full text-lg hover:bg-white hover:text-black transition-all duration-300"
+          >
+            zackturgut@gmail.com
+          </a>
 
-                              {project.technologies && (
-                                <div className="flex flex-wrap gap-2 mt-4">
-                                  {project.technologies.slice(0, 4).map((tech, t) => (
-                                    <span key={t} className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded border border-white/10 bg-black/50 text-gray-400 group-hover:border-purple-500/30 group-hover:text-purple-300 transition-colors">
-                                      {tech}
-                                    </span>
-                                  ))}
-                                </div>
-                              )}
-                            </div>
-                            <p className="text-gray-400 text-sm line-clamp-3 mb-4 group-hover:text-gray-200 transition-colors">
-                              {project.details[0]}
-                            </p>
-                            <div className="mt-auto flex items-center text-xs text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-widest font-bold">
-                              Read Case Study <ChevronRight className="w-3 h-3 ml-1" />
-                            </div>
-                          </div>
-                        </article>
-                      </TiltCard>
-                    ))}
-                  </div>
-                </PortfolioSection>
+          <div className="mt-24 flex justify-between text-sm text-gray-500 font-mono">
+            <span>© 2025 iamzekeriyya</span>
+            <span>Amsterdam, NL</span>
+          </div>
+        </div>
+      </section>
 
-                {/* 2. EXPERIENCE SECTION */}
-                <PortfolioSection
-                  id="experience"
-                  index={1}
-                  title={t.cards.experience.title}
-                  subtitle={t.cards.experience.subtitle}
-                  backgroundImage={sectionBackgrounds.experience}
-                >
-                  <div className="max-w-4xl mx-auto space-y-12">
-                    {resumeData.experience.map((exp, i) => (
-                      <article key={i} className="relative pl-8 md:pl-12 border-l-2 border-white/10 hover:border-purple-500 transition-colors duration-500 group">
-                        <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-black border-2 border-white/20 group-hover:border-purple-500 group-hover:scale-125 transition-all duration-500" />
-                        <div className="flex flex-col md:flex-row md:items-baseline gap-4 mb-4">
-                          <h3 className="text-3xl font-bold text-white group-hover:text-purple-200 transition-colors">{exp.role}</h3>
-                          <span className="text-purple-400 font-mono text-sm uppercase tracking-wider bg-purple-500/10 px-3 py-1 rounded border border-purple-500/20">{exp.company}</span>
-                        </div>
-                        <p className="text-sm text-gray-500 font-mono mb-6 bg-white/5 py-1 px-3 rounded w-fit border border-white/5">{exp.period}</p>
-                        <ul className="grid gap-4 text-gray-400 group-hover:text-gray-300">
-                          {exp.details.map((detail, j) => (
-                            <li key={j} className="text-lg leading-relaxed flex gap-4">
-                              <span className="text-purple-500/50 mt-2 min-w-[6px] h-[6px] rounded-full bg-purple-500 shrink-0" />
-                              {detail}
-                            </li>
-                          ))}
-                        </ul>
-                      </article>
-                    ))}
-                  </div>
-                </PortfolioSection>
-
-                {/* 3. EDUCATION SECTION */}
-                <PortfolioSection
-                  id="education"
-                  index={2}
-                  title={t.cards.education.title}
-                  subtitle={t.cards.education.subtitle}
-                  backgroundImage={sectionBackgrounds.education}
-                >
-                  <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                    {resumeData.education.map((edu, i) => (
-                      <article key={i} className="bg-white/5 p-8 md:p-10 rounded-3xl border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-500 group relative overflow-hidden flex flex-col">
-
-                        <div className="flex flex-col gap-2 mb-6 relative z-10">
-                          <div className="flex justify-between items-start">
-                            <h3 className="text-2xl font-bold text-white group-hover:text-purple-300 transition-colors">{edu.institution}</h3>
-                            <span className="px-3 py-1 bg-white/5 rounded text-xs text-gray-400 font-mono border border-white/5">{edu.period}</span>
-                          </div>
-                          <p className="text-purple-400 text-lg">{edu.degree}</p>
-                        </div>
-
-                        <p className="text-sm text-gray-500 mb-8 flex items-center gap-2 relative z-10">
-                          <span className="w-1.5 h-1.5 bg-gray-500 rounded-full" />
-                          {edu.location}
-                        </p>
-
-                        {edu.details.length > 0 && (
-                          <div className="pt-6 border-t border-white/5 relative z-10 mt-auto">
-                            <ul className="text-sm text-gray-400 space-y-3">
-                              {edu.details.map((detail, j) => (
-                                <li key={j} className="flex gap-3">
-                                  <span className="opacity-50 text-purple-400 font-bold">→</span>
-                                  <span className="leading-relaxed">{detail}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </article>
-                    ))}
-
-                    {/* Recognition Cards - Dynamically Mapped */}
-                    {
-                      resumeData.achievements?.map((achievement, i) => (
-                        <div key={i} className="bg-gradient-to-br from-purple-900/20 to-black p-8 md:p-10 rounded-3xl border border-purple-500/20 flex flex-col justify-center gap-4 group hover:border-purple-500/50 transition-all">
-                          <div className="flex items-center gap-3 text-purple-400 mb-2">
-                            <Zap className="w-6 h-6 text-yellow-500" />
-                            <h3 className="text-sm font-mono uppercase tracking-widest">Recognitions</h3>
-                          </div>
-                          <h4 className="text-2xl font-bold text-white group-hover:text-purple-200 transition-colors">{achievement.title}</h4>
-                          <p className="text-gray-400 leading-relaxed">{achievement.description}</p>
-                          <div className="mt-4">
-                            <span className="text-xs font-mono border border-purple-500/50 text-purple-300 px-3 py-1 rounded-full bg-purple-500/10">{achievement.role}</span>
-                          </div>
-                        </div>
-                      ))
-                    }
-                  </div>
-                </PortfolioSection>
-
-
-                {/* 4. SKILLS SECTION */}
-                <PortfolioSection
-                  id="skills"
-                  index={3}
-                  title={t.cards.skills.title}
-                  subtitle={t.cards.skills.subtitle}
-                  backgroundImage={sectionBackgrounds.skills}
-                >
-                  <div className="min-h-[80vh] flex items-center justify-center">
-                    <SkillsGrid />
-                  </div>
-                </PortfolioSection>
-
-              </main>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </ReactLenis>
+    </div>
   );
 };
+
 export default Index;
