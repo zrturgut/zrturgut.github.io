@@ -130,5 +130,12 @@ export const resumeData = {
         tools: ["Git", "VS Code", "PyCharm", "Jupyter", "Neo4j", "GraphDB", "Power BI"],
         libraries: ["NumPy", "pandas", "scikit learn", "PyTorch", "spaCy", "Matplotlib"],
         spokenLanguages: ["Turkish (Native) 🇹🇷", "English (C1) 🇬🇧", "Dutch (B2) 🇳🇱", "Spanish (A2) 🇪🇸"]
-    }
+    },
+    achievements: [
+        {
+            title: "2nd Place @ WTC 40 Hour Hackathon",
+            role: "Hackathon Hacker",
+            description: "Built 'Generative AI Project Builder' - an AI assistant that instantly generates complete hackathon projects."
+        }
+    ]
 };

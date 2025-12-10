@@ -220,18 +220,22 @@ const Index = () => {
                     </article>
                   ))}
 
-                  {/* Recognition Card */}
-                  <div className="bg-gradient-to-br from-purple-900/20 to-black p-8 md:p-10 rounded-3xl border border-purple-500/20 flex flex-col justify-center gap-4 group hover:border-purple-500/50 transition-all">
-                    <div className="flex items-center gap-3 text-purple-400 mb-2">
-                      <Zap className="w-6 h-6 text-yellow-500" />
-                      <h3 className="text-sm font-mono uppercase tracking-widest">Recognitions</h3>
-                    </div>
-                    <h4 className="text-2xl font-bold text-white group-hover:text-purple-200 transition-colors">Top 5 Finalist @ AI Hackathon 2024</h4>
-                    <p className="text-gray-400 leading-relaxed">Recognized for innovative use of Generative Agents in complex system modeling workflows.</p>
-                    <div className="mt-4">
-                      <span className="text-xs font-mono border border-purple-500/50 text-purple-300 px-3 py-1 rounded-full bg-purple-500/10">Ranked 5th / 100+</span>
-                    </div>
-                  </div>
+                  {/* Recognition Cards - Dynamically Mapped */}
+                  {
+                    resumeData.achievements?.map((achievement, i) => (
+                      <div key={i} className="bg-gradient-to-br from-purple-900/20 to-black p-8 md:p-10 rounded-3xl border border-purple-500/20 flex flex-col justify-center gap-4 group hover:border-purple-500/50 transition-all">
+                        <div className="flex items-center gap-3 text-purple-400 mb-2">
+                          <Zap className="w-6 h-6 text-yellow-500" />
+                          <h3 className="text-sm font-mono uppercase tracking-widest">Recognitions</h3>
+                        </div>
+                        <h4 className="text-2xl font-bold text-white group-hover:text-purple-200 transition-colors">{achievement.title}</h4>
+                        <p className="text-gray-400 leading-relaxed">{achievement.description}</p>
+                        <div className="mt-4">
+                          <span className="text-xs font-mono border border-purple-500/50 text-purple-300 px-3 py-1 rounded-full bg-purple-500/10">{achievement.role}</span>
+                        </div>
+                      </div>
+                    ))
+                  }
                 </div>
               </PortfolioSection>
 
