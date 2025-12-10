@@ -1,13 +1,14 @@
-import { Github, Linkedin, Mail, Phone, Home } from "lucide-react";
+import { Github, Linkedin, Mail, Phone, Home, Gamepad2 } from "lucide-react";
 import { Language } from "@/data/translations";
 
 interface NavigationProps {
     onBackToHome: () => void;
     lang: Language;
     setLang: (lang: Language) => void;
+    onOpenGame: () => void;
 }
 
-const Navigation = ({ onBackToHome, lang, setLang }: NavigationProps) => {
+const Navigation = ({ onBackToHome, lang, setLang, onOpenGame }: NavigationProps) => {
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-8 pointer-events-none">
             <div className="flex items-center gap-4 pointer-events-auto">
@@ -46,6 +47,14 @@ const Navigation = ({ onBackToHome, lang, setLang }: NavigationProps) => {
                         </button>
                     ))}
                 </div>
+
+                <button
+                    onClick={onOpenGame}
+                    className="p-2 mr-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 group"
+                    aria-label="Play Game"
+                >
+                    <Gamepad2 className="w-5 h-5 text-gray-400 group-hover:text-green-400" />
+                </button>
 
                 <a
                     href="https://github.com/zrturgut"

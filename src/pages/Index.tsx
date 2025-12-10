@@ -7,6 +7,7 @@ import { translations, Language } from "@/data/translations";
 import { Code2, GraduationCap, Briefcase, Terminal, Eye } from "lucide-react";
 import SkillsGraph from "@/components/SkillsGraph";
 import ProjectModal from "@/components/ProjectModal";
+import AIStrategyGame from "@/components/AIStrategyGame";
 
 // --- Components ---
 
@@ -219,11 +220,13 @@ const Index = () => {
   const [showLanding, setShowLanding] = useState(true);
   const [lang, setLang] = useState<Language>('nl'); // Default to Dutch
   const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [showGame, setShowGame] = useState(false);
   const t = translations[lang];
 
   return (
     <div className="bg-black text-white relative min-h-screen font-sans selection:bg-purple-500/30 overflow-hidden">
       <CustomCursor />
+      {showGame && <AIStrategyGame onClose={() => setShowGame(false)} />}
       <ProjectModal isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} project={selectedProject} />
 
       <div className="fixed inset-0 z-0 pointer-events-none">
@@ -276,6 +279,7 @@ const Index = () => {
               onBackToHome={() => setShowLanding(true)}
               lang={lang}
               setLang={setLang}
+              onOpenGame={() => setShowGame(true)}
             />
             <main className="relative z-10 container mx-auto px-4 py-32 flex-grow h-[120vh]">
               <div className="flex flex-col md:flex-row h-full gap-4 md:gap-0 border border-white/10 rounded-3xl overflow-hidden bg-black/40 backdrop-blur-xl shadow-2xl ring-1 ring-white/5">
