@@ -4,7 +4,9 @@ import ThreeBackground from "@/components/ThreeBackground";
 import Navigation from "@/components/Navigation";
 import { resumeData, sectionBackgrounds } from "@/data/resume";
 import { translations, Language } from "@/data/translations";
-import { Code2, GraduationCap, Briefcase, Terminal } from "lucide-react";
+import { Code2, GraduationCap, Briefcase, Terminal, Eye } from "lucide-react";
+import SkillsGraph from "@/components/SkillsGraph";
+import ProjectModal from "@/components/ProjectModal";
 
 // --- Components ---
 
@@ -59,14 +61,11 @@ const Typewriter = ({ text, delay = 0 }: { text: string; delay?: number }) => {
       setStarted(true);
     }, delay * 1000);
     return () => clearTimeout(timeout);
-  }, [delay, text]); // Reset when text changes
+  }, [delay, text]);
 
   useEffect(() => {
     if (!text) return;
-    // Reset if text changes to something else
     setDisplayedText("");
-    // But we need to handle the 'delay' again if we want to restart typing.
-    // For simplicity in this language switch, let's just type immediately if started is true.
   }, [text]);
 
   useEffect(() => {
@@ -97,7 +96,7 @@ const GlitchText = ({ text }: { text: React.ReactNode }) => {
 };
 
 // 3D Tilt Card Component
-const TiltCard = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+const TiltCard = ({ children, className, onClick }: { children: React.ReactNode; className?: string, onClick?: () => void }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -127,6 +126,7 @@ const TiltCard = ({ children, className }: { children: React.ReactNode; classNam
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onClick={onClick}
       className={className}
     >
       {children}
@@ -203,6 +203,7 @@ const Card = ({ index, title, subtitle, icon: Icon, isActive, onClick, backgroun
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               className="mt-4 overflow-y-auto pr-6 scrollbar-thin scrollbar-thumb-purple-500/30 scrollbar-track-white/5 h-full pb-32"
+              onClick={(e) => e.stopPropagation()}
             >
               {children}
             </motion.div>
@@ -217,11 +218,14 @@ const Index = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
   const [showLanding, setShowLanding] = useState(true);
   const [lang, setLang] = useState<Language>('nl'); // Default to Dutch
+  const [selectedProject, setSelectedProject] = useState<any>(null);
   const t = translations[lang];
 
   return (
     <div className="bg-black text-white relative min-h-screen font-sans selection:bg-purple-500/30 overflow-hidden">
       <CustomCursor />
+      <ProjectModal isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} project={selectedProject} />
+
       <div className="fixed inset-0 z-0 pointer-events-none">
         <ThreeBackground />
       </div>
@@ -288,8 +292,15 @@ const Index = () => {
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {resumeData.projects.map((project, i) => (
-                      <TiltCard key={i} className="h-full">
-                        <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-500 h-full">
+                      <TiltCard key={i} className="h-full" onClick={() => setSelectedProject(project)}>
+                        <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-500 h-full cursor-pointer">
+                          {/* Overlay Button */}
+                          <div className="absolute top-4 right-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span className="p-2 bg-purple-500/80 backdrop-blur rounded-full text-white shadow-lg block hover:bg-purple-400">
+                              <Eye size={16} />
+                            </span>
+                          </div>
+
                           {project.gif && (
                             <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
                               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
@@ -408,72 +419,9 @@ const Index = () => {
                   isActive={activeIndex === 3}
                   onClick={() => setActiveIndex(3)}
                 >
-                  <div className="flex flex-col gap-12 h-full">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                      {/* Programming Column */}
-                      <div>
-                        <h3 className="text-sm uppercase tracking-[0.2em] text-gray-400 mb-8 border-b border-gray-800 pb-2 flex items-center gap-2 lowercase">
-                          <Terminal className="w-4 h-4" /> {t.sections.programming}
-                        </h3>
-                        <ul className="space-y-4">
-                          {resumeData.technicalSkills.languages.map((skill, i) => (
-                            <li key={i} className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group">
-                              <span className="w-1.5 h-1.5 bg-green-500/50 rounded-full group-hover:bg-green-400 transition-colors shadow-[0_0_8px_rgba(74,222,128,0.5)]"></span>
-                              <span className="font-mono text-sm tracking-wide">{skill}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* AI / ML Column */}
-                      <div>
-                        <h3 className="text-sm uppercase tracking-[0.2em] text-gray-400 mb-8 border-b border-gray-800 pb-2 flex items-center gap-2 lowercase">
-                          <Code2 className="w-4 h-4" /> {t.sections.ai_ml}
-                        </h3>
-                        <ul className="space-y-4">
-                          {resumeData.technicalSkills.libraries.map((skill, i) => (
-                            <li key={i} className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group">
-                              <span className="w-1.5 h-1.5 bg-purple-500/50 rounded-full group-hover:bg-purple-400 transition-colors shadow-[0_0_8px_rgba(192,132,252,0.5)]"></span>
-                              <span className="font-mono text-sm tracking-wide">{skill}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Tools Column */}
-                      <div>
-                        <h3 className="text-sm uppercase tracking-[0.2em] text-gray-400 mb-8 border-b border-gray-800 pb-2 flex items-center gap-2 lowercase">
-                          <Briefcase className="w-4 h-4" /> {t.sections.tools}
-                        </h3>
-                        <ul className="space-y-4">
-                          {resumeData.technicalSkills.tools.map((skill, i) => (
-                            <li key={i} className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group">
-                              <span className="w-1.5 h-1.5 bg-amber-500/50 rounded-full group-hover:bg-amber-400 transition-colors shadow-[0_0_8px_rgba(251,191,36,0.5)]"></span>
-                              <span className="font-mono text-sm tracking-wide">{skill}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    {/* Spoken Languages Row - Image 2 Style */}
-                    <div className="mt-auto border-t border-white/10 pt-8">
-                      <h3 className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-6 text-center lowercase">{t.sections.spoken_languages}</h3>
-                      <div className="flex flex-wrap justify-center gap-12 md:gap-24">
-                        {resumeData.technicalSkills.spokenLanguages.map((langString, i) => {
-                          const parts = langString.split(" ");
-                          const flag = parts[parts.length - 1];
-                          const name = parts[0];
-
-                          return (
-                            <div key={i} className="flex flex-col items-center gap-4 group cursor-default">
-                              <span className="text-4xl md:text-5xl filter grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110 drop-shadow-2xl">{flag}</span>
-                              <span className="text-xs uppercase tracking-[0.2em] text-gray-500 group-hover:text-white transition-colors">{name}</span>
-                            </div>
-                          )
-                        })}
-                      </div>
-                    </div>
+                  <div className="w-full h-full min-h-[500px] flex flex-col">
+                    <p className="text-sm text-gray-500 mb-4 text-center font-mono uppercase tracking-widest text-xs">Interactive Network • Click nodes to explore</p>
+                    <SkillsGraph />
                   </div>
                 </Card>
 

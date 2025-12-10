@@ -76,40 +76,48 @@ export const resumeData = {
     ],
     projects: [
         {
+            id: "gen-ai-builder",
             title: "Generative AI Project Builder",
             subtitle: "Hackathon Hacker – 2nd Place at WTC 40 Hour Hackathon",
             gif: "https://i.giphy.com/media/26tn33aiTi1jkl6H6/giphy.webp",
             technologies: ["React", "TypeScript", "OpenAI API", "Tailwind"],
+            repo: "https://github.com/zrturgut/gen-ai-builder",
             details: [
                 "Created an AI assistant that instantly generates complete hackathon projects including architecture, backend, frontend, tests and documentation.",
                 "Collaborated closely with teammates to rapidly ideate, prototype and present a functional solution to judges."
             ]
         },
         {
+            id: "human-ai-robot",
             title: "Human AI Interaction Prototype",
             subtitle: "",
             gif: "https://i.giphy.com/media/NvVO0lqVd9yP6/giphy.webp",
             technologies: ["Python", "Kotlin", "WebSockets", "Furhat SDK"],
+            repo: "https://github.com/zrturgut/human-ai-interaction",
             details: [
                 "Built a working prototype of a Furhat social robot, focusing on natural interaction and clear conversational behavior.",
                 "Designed and implemented a supporting web interface to ensure intuitive usability and smooth communication between users and the robot."
             ]
         },
         {
+            id: "liver-disease-ml",
             title: "Liver Disease Classification with Machine Learning",
             subtitle: "Research Project",
             gif: "https://i.giphy.com/media/TqiwHbFBaZ4ti/giphy.webp",
             technologies: ["Python", "scikit-learn", "Pandas", "Matplotlib"],
+            repo: "https://github.com/zrturgut/liver-disease-classifiction",
             details: [
                 "Developed classification models (Random Forest, Gradient Boosting) using Python, scikit learn, pandas, Matplotlib on more than 3500 samples.",
                 "Applied structured experimentation and iteration to improve model reliability and explainability."
             ]
         },
         {
+            id: "nlp-text-mining",
             title: "Text Mining for AI: NLP Model Development",
             subtitle: "Research Project",
             gif: "https://i.giphy.com/media/U3qYN8S0j3bpK/giphy.webp",
             technologies: ["Python", "BERT", "spaCy", "NLTK", "PyTorch"],
+            repo: "https://github.com/zrturgut/nlp-text-mining",
             details: [
                 "Worked in a team to build models for sentiment analysis, topic classification and named entity recognition.",
                 "Used VADER, Naive Bayes, Logistic Regression, Random Forest, spaCy transformers and fine tuned BERT.",
