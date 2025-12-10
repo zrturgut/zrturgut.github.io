@@ -21,7 +21,7 @@ const Card = ({ index, title, subtitle, icon: Icon, isActive, onClick, backgroun
     <motion.div
       layout
       onClick={onClick}
-      className={`relative overflow-hidden cursor-pointer transition-all duration-700 ease-[bezier(0.25,1,0.5,1)]
+      className={`relative overflow-hidden cursor-pointer transition-all duration-700 ease-out
         ${isActive ? "flex-[4]" : "flex-1 hover:flex-[1.2] opacity-80 hover:opacity-100"}
         border-r border-white/10 last:border-r-0 backdrop-blur-md group
       `}

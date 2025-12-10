@@ -1,9 +1,9 @@
 export const sectionBackgrounds = {
-    projects: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z5Z2Z5Z2Z5Z2Z5Z2Z5Z2Z5Z2Z5Z2Z5/kBJyD2u52tDHy/giphy.gif", // Futuristic HUD
-    research: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z5Z2Z5Z2Z5Z2Z5Z2Z5Z2Z5Z2Z5Z2Z5/QtX9S899n88SI/giphy.gif", // Neural Network
-    experience: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z5Z2Z5Z2Z5Z2Z5Z2Z5Z2Z5Z2Z5Z2Z5/J1QA62A0Y1hIc/giphy.gif", // City Lights
-    education: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z5Z2Z5Z2Z5Z2Z5Z2Z5Z2Z5Z2Z5Z2Z5/l0HlO7m3c3yZj5vZS/giphy.gif", // Space
-    skills: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z5Z2Z5Z2Z5Z2Z5Z2Z5Z2Z5Z2Z5Z2Z5/xT9IgzoKnwFNmISR8I/giphy.gif", // Matrix
+    projects: "https://media.giphy.com/media/kBJyD2u52tDHy/giphy.gif", // Futuristic HUD
+    research: "https://media.giphy.com/media/QtX9S899n88SI/giphy.gif", // Neural Network
+    experience: "https://media.giphy.com/media/J1QA62A0Y1hIc/giphy.gif", // City Lights
+    education: "https://media.giphy.com/media/l0HlO7m3c3yZj5vZS/giphy.gif", // Space
+    skills: "https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif", // Matrix
 };
 
 export const resumeData = {
