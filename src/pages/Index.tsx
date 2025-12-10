@@ -4,20 +4,19 @@ import ThreeBackground from "@/components/ThreeBackground";
 import Navigation from "@/components/Navigation";
 import { resumeData, sectionBackgrounds } from "@/data/resume";
 import { translations, Language } from "@/data/translations";
-import { Code2, GraduationCap, Briefcase, Terminal, Eye, ChevronRight, Zap } from "lucide-react";
+import { ChevronRight, Eye, Briefcase, Zap } from "lucide-react";
 import SkillsGraph from "@/components/SkillsGraph";
 import ProjectModal from "@/components/ProjectModal";
 import AIStrategyGame from "@/components/AIStrategyGame";
 
 // UI Components
-import Card from "@/components/ui/Card";
+import PortfolioSection from "@/components/ui/PortfolioSection";
 import TiltCard from "@/components/ui/TiltCard";
 import CustomCursor from "@/components/ui/CustomCursor";
 import GlitchText from "@/components/ui/GlitchText";
 import Typewriter from "@/components/ui/Typewriter";
 
 const Index = () => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(0);
   const [showLanding, setShowLanding] = useState(true);
   const [lang, setLang] = useState<Language>('nl');
   const [selectedProject, setSelectedProject] = useState<any>(null);
@@ -25,7 +24,7 @@ const Index = () => {
   const t = translations[lang];
 
   return (
-    <div className="bg-black text-white relative min-h-screen font-sans selection:bg-purple-500/30 overflow-hidden">
+    <div className="bg-black text-white relative min-h-screen font-sans selection:bg-purple-500/30 overflow-x-hidden">
       <CustomCursor />
       {showGame && <AIStrategyGame onClose={() => setShowGame(false)} />}
       <ProjectModal isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} project={selectedProject} />
@@ -57,7 +56,6 @@ const Index = () => {
                 <p className="text-lg md:text-2xl text-purple-200/50 tracking-[0.5em] font-light uppercase h-8 lowercase">
                   <Typewriter text={t.role} delay={1.5} />
                 </p>
-                {/* One Sentence Intro */}
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -96,193 +94,175 @@ const Index = () => {
               onOpenGame={() => setShowGame(true)}
             />
 
-            {/* Semantic Section Wrapper */}
-            <main className="relative z-10 container mx-auto px-4 py-32 flex-grow h-[120vh]">
-              <section
-                className="flex flex-col md:flex-row h-full gap-4 md:gap-0 border border-white/10 rounded-3xl overflow-hidden bg-black/40 backdrop-blur-xl shadow-2xl ring-1 ring-white/5"
-                aria-label="Portfolio Sections"
+            <main className="relative z-10 w-full">
+
+              {/* 1. PROJECTS SECTION */}
+              <PortfolioSection
+                id="projects"
+                index={0}
+                title={t.cards.projects.title}
+                subtitle={t.cards.projects.subtitle}
+                backgroundImage={sectionBackgrounds.projects}
               >
-
-                {/* PROJECTS - With Navigation Hint */}
-                <Card
-                  index={0}
-                  title={t.cards.projects.title}
-                  subtitle={t.cards.projects.subtitle}
-                  icon={Code2}
-                  backgroundImage={sectionBackgrounds.projects}
-                  isActive={activeIndex === 0}
-                  onClick={() => setActiveIndex(0)}
-                >
-                  {activeIndex !== 0 && (
-                    <div className="absolute top-1/2 -left-4 md:-top-16 md:left-1/2 transform -translate-y-1/2 md:-translate-x-1/2 animate-bounce opacity-50 pointer-events-none">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full" />
-                    </div>
-                  )}
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-20">
-                    {resumeData.projects.map((project, i) => (
-                      <TiltCard key={i} className="h-full" onClick={() => setSelectedProject(project)}>
-                        <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-500 h-full cursor-pointer">
-                          {/* Actions */}
-                          <div className="absolute top-4 right-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
-                            <button className="p-2 bg-purple-500/80 backdrop-blur rounded-full text-white shadow-lg hover:bg-purple-400 transition-colors" aria-label={`View details for ${project.title}`}>
-                              <Eye size={16} />
-                            </button>
-                          </div>
-
-                          {project.gif && (
-                            <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
-                              <img src={project.gif} alt="" loading="lazy" className="w-full h-full object-cover" />
-                            </div>
-                          )}
-                          <div className="relative z-20 p-8 h-full flex flex-col">
-                            <div className="mb-4">
-                              <h3 className="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors mb-2">{project.title}</h3>
-                              {project.subtitle && <span className="inline-block px-3 py-1 bg-purple-500/20 text-purple-200 text-xs font-mono rounded-full border border-purple-500/20">{project.subtitle}</span>}
-
-                              {project.technologies && (
-                                <div className="flex flex-wrap gap-2 mt-4">
-                                  {project.technologies.slice(0, 4).map((tech, t) => (
-                                    <span key={t} className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded border border-white/10 bg-black/50 text-gray-400 group-hover:border-purple-500/30 group-hover:text-purple-300 transition-colors">
-                                      {tech}
-                                    </span>
-                                  ))}
-                                  {project.technologies.length > 4 && <span className="text-[10px] text-gray-500 py-1">+{project.technologies.length - 4}</span>}
-                                </div>
-                              )}
-                            </div>
-                            <p className="text-gray-400 text-sm line-clamp-3 mb-4 group-hover:text-gray-200 transition-colors">
-                              {project.details[0]}
-                            </p>
-                            <div className="mt-auto flex items-center text-xs text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-widest font-bold">
-                              Read Case Study <ChevronRight className="w-3 h-3 ml-1" />
-                            </div>
-                          </div>
-                        </article>
-                      </TiltCard>
-                    ))}
-                  </div>
-                </Card>
-
-                {/* EXPERIENCE */}
-                <Card
-                  index={1}
-                  title={t.cards.experience.title}
-                  subtitle={t.cards.experience.subtitle}
-                  icon={Briefcase}
-                  backgroundImage={sectionBackgrounds.experience}
-                  isActive={activeIndex === 1}
-                  onClick={() => setActiveIndex(1)}
-                >
-                  <div className="space-y-12 pl-2 max-w-4xl">
-                    {resumeData.experience.map((exp, i) => (
-                      <article key={i} className="relative pl-8 border-l-2 border-white/10 hover:border-purple-500 transition-colors duration-500 group">
-                        <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-black border-2 border-white/20 group-hover:border-purple-500 group-hover:scale-125 transition-all duration-500" />
-                        <div className="flex flex-col md:flex-row md:items-center gap-2 mb-4">
-                          <h3 className="text-2xl font-bold text-white group-hover:text-purple-200 transition-colors">{exp.role}</h3>
-                          <span className="hidden md:inline text-white/20">•</span>
-                          <span className="text-purple-400 font-mono text-sm uppercase tracking-wider">{exp.company}</span>
-                        </div>
-                        <p className="text-sm text-gray-500 font-mono mb-4 bg-white/5 py-1 px-3 rounded w-fit border border-white/5">{exp.period}</p>
-                        <ul className="space-y-3 text-gray-400 group-hover:text-gray-300">
-                          {exp.details.map((detail, j) => (
-                            <li key={j} className="text-base leading-relaxed flex gap-3">
-                              <span className="text-purple-500/50 mt-1.5 min-w-[4px] h-[4px] rounded-full bg-purple-500" />
-                              {detail}
-                            </li>
-                          ))}
-                        </ul>
-                      </article>
-                    ))}
-                  </div>
-                </Card>
-
-                {/* EDUCATION */}
-                <Card
-                  index={2}
-                  title={t.cards.education.title}
-                  subtitle={t.cards.education.subtitle}
-                  icon={GraduationCap}
-                  backgroundImage={sectionBackgrounds.education}
-                  isActive={activeIndex === 2}
-                  onClick={() => setActiveIndex(2)}
-                >
-                  <div className="grid gap-6 max-w-3xl">
-                    {resumeData.education.map((edu, i) => (
-                      <article key={i} className="bg-white/5 p-8 rounded-2xl border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-500 group relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-32 bg-purple-500/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
-
-                        <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-4 relative z-10">
-                          <div>
-                            <h3 className="text-xl font-bold text-white group-hover:text-purple-300 transition-colors">{edu.institution}</h3>
-                            <p className="text-purple-400/80 mt-1">{edu.degree}</p>
-                          </div>
-                          <span className="px-3 py-1 bg-white/5 rounded text-xs text-gray-400 font-mono whitespace-nowrap border border-white/5">{edu.period}</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {resumeData.projects.map((project, i) => (
+                    <TiltCard key={i} className="h-full min-h-[400px]" onClick={() => setSelectedProject(project)}>
+                      <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-500 h-full cursor-pointer flex flex-col">
+                        {/* Actions */}
+                        <div className="absolute top-4 right-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
+                          <button className="p-2 bg-purple-500/80 backdrop-blur rounded-full text-white shadow-lg hover:bg-purple-400 transition-colors">
+                            <Eye size={16} />
+                          </button>
                         </div>
 
-                        <p className="text-sm text-gray-500 mb-6 flex items-center gap-2 relative z-10">
-                          <span className="w-1 h-1 bg-gray-500 rounded-full" />
-                          {edu.location}
-                        </p>
-
-                        {edu.details.length > 0 && (
-                          <div className="pt-6 border-t border-white/5 relative z-10">
-                            <ul className="text-sm text-gray-400 space-y-2">
-                              {edu.details.map((detail, j) => (
-                                <li key={j} className="flex gap-2">
-                                  <span className="opacity-50 text-purple-400">→</span> {detail}
-                                </li>
-                              ))}
-                            </ul>
+                        {project.gif && (
+                          <div className="relative h-48 w-full overflow-hidden border-b border-white/5">
+                            <img src={project.gif} alt="" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
                           </div>
                         )}
-                      </article>
-                    ))}
 
-                    {/* Achievement Section (Quick Update) */}
-                    <div className="mt-8">
-                      <h3 className="text-sm font-mono uppercase tracking-widest text-gray-500 mb-4 flex items-center gap-2">
-                        <Zap className="w-4 h-4 text-yellow-500" /> Recognitions & Hackathons
-                      </h3>
-                      <div className="bg-gradient-to-r from-purple-900/20 to-black p-4 rounded-lg border border-purple-500/20 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <div>
-                          <h4 className="font-bold text-white">Top 5 Finalist @ AI Hackathon 2024</h4>
-                          <p className="text-xs text-gray-400">Recognized for innovative use of Generative Agents.</p>
+                        <div className="relative z-20 p-6 flex flex-col flex-grow">
+                          <div className="mb-4">
+                            <h3 className="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors mb-2">{project.title}</h3>
+                            {project.subtitle && <span className="inline-block px-3 py-1 bg-purple-500/20 text-purple-200 text-xs font-mono rounded-full border border-purple-500/20">{project.subtitle}</span>}
+
+                            {project.technologies && (
+                              <div className="flex flex-wrap gap-2 mt-4">
+                                {project.technologies.slice(0, 4).map((tech, t) => (
+                                  <span key={t} className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded border border-white/10 bg-black/50 text-gray-400 group-hover:border-purple-500/30 group-hover:text-purple-300 transition-colors">
+                                    {tech}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                          <p className="text-gray-400 text-sm line-clamp-3 mb-4 group-hover:text-gray-200 transition-colors">
+                            {project.details[0]}
+                          </p>
+                          <div className="mt-auto flex items-center text-xs text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-widest font-bold">
+                            Read Case Study <ChevronRight className="w-3 h-3 ml-1" />
+                          </div>
                         </div>
-                        <span className="text-xs font-mono border border-purple-500/50 text-purple-300 px-2 py-1 rounded">Ranked 5th / 100+</span>
+                      </article>
+                    </TiltCard>
+                  ))}
+                </div>
+              </PortfolioSection>
+
+              {/* 2. EXPERIENCE SECTION */}
+              <PortfolioSection
+                id="experience"
+                index={1}
+                title={t.cards.experience.title}
+                subtitle={t.cards.experience.subtitle}
+                backgroundImage={sectionBackgrounds.experience}
+              >
+                <div className="max-w-4xl mx-auto space-y-12">
+                  {resumeData.experience.map((exp, i) => (
+                    <article key={i} className="relative pl-8 md:pl-12 border-l-2 border-white/10 hover:border-purple-500 transition-colors duration-500 group">
+                      <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-black border-2 border-white/20 group-hover:border-purple-500 group-hover:scale-125 transition-all duration-500" />
+                      <div className="flex flex-col md:flex-row md:items-baseline gap-4 mb-4">
+                        <h3 className="text-3xl font-bold text-white group-hover:text-purple-200 transition-colors">{exp.role}</h3>
+                        <span className="text-purple-400 font-mono text-sm uppercase tracking-wider bg-purple-500/10 px-3 py-1 rounded border border-purple-500/20">{exp.company}</span>
                       </div>
+                      <p className="text-sm text-gray-500 font-mono mb-6 bg-white/5 py-1 px-3 rounded w-fit border border-white/5">{exp.period}</p>
+                      <ul className="grid gap-4 text-gray-400 group-hover:text-gray-300">
+                        {exp.details.map((detail, j) => (
+                          <li key={j} className="text-lg leading-relaxed flex gap-4">
+                            <span className="text-purple-500/50 mt-2 min-w-[6px] h-[6px] rounded-full bg-purple-500 shrink-0" />
+                            {detail}
+                          </li>
+                        ))}
+                      </ul>
+                    </article>
+                  ))}
+                </div>
+              </PortfolioSection>
+
+              {/* 3. EDUCATION SECTION */}
+              <PortfolioSection
+                id="education"
+                index={2}
+                title={t.cards.education.title}
+                subtitle={t.cards.education.subtitle}
+                backgroundImage={sectionBackgrounds.education}
+              >
+                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                  {resumeData.education.map((edu, i) => (
+                    <article key={i} className="bg-white/5 p-8 md:p-10 rounded-3xl border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-500 group relative overflow-hidden flex flex-col">
+
+                      <div className="flex flex-col gap-2 mb-6 relative z-10">
+                        <div className="flex justify-between items-start">
+                          <h3 className="text-2xl font-bold text-white group-hover:text-purple-300 transition-colors">{edu.institution}</h3>
+                          <span className="px-3 py-1 bg-white/5 rounded text-xs text-gray-400 font-mono border border-white/5">{edu.period}</span>
+                        </div>
+                        <p className="text-purple-400 text-lg">{edu.degree}</p>
+                      </div>
+
+                      <p className="text-sm text-gray-500 mb-8 flex items-center gap-2 relative z-10">
+                        <span className="w-1.5 h-1.5 bg-gray-500 rounded-full" />
+                        {edu.location}
+                      </p>
+
+                      {edu.details.length > 0 && (
+                        <div className="pt-6 border-t border-white/5 relative z-10 mt-auto">
+                          <ul className="text-sm text-gray-400 space-y-3">
+                            {edu.details.map((detail, j) => (
+                              <li key={j} className="flex gap-3">
+                                <span className="opacity-50 text-purple-400 font-bold">→</span>
+                                <span className="leading-relaxed">{detail}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </article>
+                  ))}
+
+                  {/* Recognition Card */}
+                  <div className="bg-gradient-to-br from-purple-900/20 to-black p-8 md:p-10 rounded-3xl border border-purple-500/20 flex flex-col justify-center gap-4 group hover:border-purple-500/50 transition-all">
+                    <div className="flex items-center gap-3 text-purple-400 mb-2">
+                      <Zap className="w-6 h-6 text-yellow-500" />
+                      <h3 className="text-sm font-mono uppercase tracking-widest">Recognitions</h3>
+                    </div>
+                    <h4 className="text-2xl font-bold text-white group-hover:text-purple-200 transition-colors">Top 5 Finalist @ AI Hackathon 2024</h4>
+                    <p className="text-gray-400 leading-relaxed">Recognized for innovative use of Generative Agents in complex system modeling workflows.</p>
+                    <div className="mt-4">
+                      <span className="text-xs font-mono border border-purple-500/50 text-purple-300 px-3 py-1 rounded-full bg-purple-500/10">Ranked 5th / 100+</span>
                     </div>
                   </div>
-                </Card>
+                </div>
+              </PortfolioSection>
 
-                {/* SKILLS */}
-                <Card
-                  index={3}
-                  title={t.cards.skills.title}
-                  subtitle={t.cards.skills.subtitle}
-                  icon={Terminal}
-                  backgroundImage={sectionBackgrounds.skills}
-                  isActive={activeIndex === 3}
-                  onClick={() => setActiveIndex(3)}
-                >
-                  <div className="w-full h-full min-h-[500px] flex flex-col relative">
-                    <div className="absolute top-0 right-0 z-10 flex gap-2">
-                      <div className="px-3 py-1 bg-black/50 backdrop-blur rounded-full border border-white/10 text-[10px] text-gray-400">
-                        <span className="w-2 h-2 bg-purple-500 rounded-full inline-block mr-2" />Languages
-                      </div>
-                      <div className="px-3 py-1 bg-black/50 backdrop-blur rounded-full border border-white/10 text-[10px] text-gray-400">
-                        <span className="w-2 h-2 bg-yellow-500 rounded-full inline-block mr-2" />AI/ML
-                      </div>
+
+              {/* 4. SKILLS SECTION */}
+              <PortfolioSection
+                id="skills"
+                index={3}
+                title={t.cards.skills.title}
+                subtitle={t.cards.skills.subtitle}
+                backgroundImage={sectionBackgrounds.skills}
+              >
+                <div className="w-full h-[80vh] min-h-[600px] border border-white/10 rounded-3xl bg-black/40 backdrop-blur-sm relative overflow-hidden">
+                  <div className="absolute top-4 right-4 z-10 flex flex-wrap gap-2 justify-end pointer-events-none">
+                    <div className="px-3 py-1 bg-black/50 backdrop-blur rounded-full border border-white/10 text-[10px] text-gray-400 flex items-center">
+                      <span className="w-2 h-2 bg-purple-500 rounded-full inline-block mr-2" />Languages
                     </div>
-                    <p className="text-sm text-gray-500 mb-4 text-center font-mono uppercase tracking-widest text-xs">
-                      Interactive Network • Click nodes to explore
-                    </p>
-                    <SkillsGraph />
+                    <div className="px-3 py-1 bg-black/50 backdrop-blur rounded-full border border-white/10 text-[10px] text-gray-400 flex items-center">
+                      <span className="w-2 h-2 bg-yellow-500 rounded-full inline-block mr-2" />AI/ML
+                    </div>
+                    <div className="px-3 py-1 bg-black/50 backdrop-blur rounded-full border border-white/10 text-[10px] text-gray-400 flex items-center">
+                      <span className="w-2 h-2 bg-blue-500 rounded-full inline-block mr-2" />Tools
+                    </div>
                   </div>
-                </Card>
+                  <p className="absolute bottom-4 left-0 right-0 text-center text-xs text-gray-500 font-mono uppercase tracking-widest pointer-events-none">
+                    Interactive Network • Drag & Click nodes to explore
+                  </p>
+                  <SkillsGraph />
+                </div>
+              </PortfolioSection>
 
-              </section>
             </main>
           </motion.div>
         )}
