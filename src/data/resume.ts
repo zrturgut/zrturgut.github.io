@@ -1,3 +1,12 @@
+// Section Background GIFs
+export const sectionBackgrounds = {
+    projects: "https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif", // Matrix/Code
+    research: "https://media.giphy.com/media/QHE5gWI0QjqF2/giphy.gif", // Nodes/Network
+    experience: "https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif", // City Lights
+    education: "https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif", // Abstract
+    skills: "https://media.giphy.com/media/BJEqM6kZKqJJC/giphy.gif", // Tech/HUD
+};
+
 export const resumeData = {
     education: [
         {
@@ -70,6 +79,7 @@ export const resumeData = {
         {
             title: "Generative AI Project Builder",
             subtitle: "Hackathon Hacker – 2nd Place at WTC 40 Hour Hackathon",
+            gif: "https://media.giphy.com/media/26tn33aiTi1jkl6H6/giphy.gif",
             details: [
                 "Created an AI assistant that instantly generates complete hackathon projects including architecture, backend, frontend, tests and documentation.",
                 "Collaborated closely with teammates to rapidly ideate, prototype and present a functional solution to judges."
@@ -78,16 +88,16 @@ export const resumeData = {
         {
             title: "Human AI Interaction Prototype",
             subtitle: "",
+            gif: "https://media.giphy.com/media/NvVO0lqVd9yP6/giphy.gif",
             details: [
                 "Built a working prototype of a Furhat social robot, focusing on natural interaction and clear conversational behavior.",
                 "Designed and implemented a supporting web interface to ensure intuitive usability and smooth communication between users and the robot."
             ]
-        }
-    ],
-    research: [
+        },
         {
             title: "Liver Disease Classification with Machine Learning",
-            subtitle: "",
+            subtitle: "Research Project",
+            gif: "https://media.giphy.com/media/TqiwHbFBaZ4ti/giphy.gif",
             details: [
                 "Developed classification models (Random Forest, Gradient Boosting) using Python, scikit learn, pandas, Matplotlib on more than 3500 samples.",
                 "Applied structured experimentation and iteration to improve model reliability and explainability."
@@ -95,7 +105,8 @@ export const resumeData = {
         },
         {
             title: "Text Mining for AI: NLP Model Development",
-            subtitle: "",
+            subtitle: "Research Project",
+            gif: "https://media.giphy.com/media/U3qYN8S0j3bpK/giphy.gif",
             details: [
                 "Worked in a team to build models for sentiment analysis, topic classification and named entity recognition.",
                 "Used VADER, Naive Bayes, Logistic Regression, Random Forest, spaCy transformers and fine tuned BERT.",

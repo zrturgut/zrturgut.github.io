@@ -5,7 +5,7 @@ const Navigation = () => {
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-8 pointer-events-none">
             <div className="text-xl font-bold tracking-wider pointer-events-auto hover:text-purple-400 transition-colors cursor-pointer">
-                ZACK TURGUT
+                ZEKERIYYA TURGUT
             </div>
 
             <div className="flex gap-6 pointer-events-auto">
