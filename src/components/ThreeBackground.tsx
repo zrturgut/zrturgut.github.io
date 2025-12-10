@@ -7,7 +7,7 @@ import { Points as PointsType } from "three";
 const Stars = (props: React.ComponentProps<typeof Points>) => {
     const ref = useRef<PointsType>(null);
     const [sphere] = useMemo(() => {
-        const data = new Float32Array(5000 * 3);
+        const data = new Float32Array(3000 * 3);
         return [random.inSphere(data, { radius: 1.5 }) as Float32Array];
     }, []);
 

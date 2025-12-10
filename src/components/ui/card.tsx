@@ -1,43 +1,97 @@
-import * as React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-import { cn } from "@/lib/utils";
+interface CardProps {
+  index: number;
+  title: string;
+  subtitle: string;
+  icon: React.ElementType;
+  isActive: boolean;
+  onClick: () => void;
+  backgroundImage: string;
+  children: React.ReactNode;
+}
 
-const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("rounded-lg border bg-card text-card-foreground shadow-sm", className)} {...props} />
-));
-Card.displayName = "Card";
+const Card = ({ index, title, subtitle, icon: Icon, isActive, onClick, backgroundImage, children }: CardProps) => {
+  // Handle keyboard interaction for accessibility
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onClick();
+    }
+  };
 
-const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("flex flex-col space-y-1.5 p-6", className)} {...props} />
-  ),
-);
-CardHeader.displayName = "CardHeader";
+  return (
+    <motion.div
+      layout
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+      aria-expanded={isActive}
+      className={`relative overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)]
+        ${isActive ? "flex-[4]" : "flex-1 hover:flex-[1.2] opacity-80 hover:opacity-100"}
+        border-r border-white/5 last:border-r-0 backdrop-blur-md group outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50
+      `}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1, ease: "easeOut" }}
+    >
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-black/60 z-10" />
+        <img
+          src={backgroundImage}
+          alt="" // Decorative background
+          loading="lazy"
+          className={`w-full h-full object-cover transition-all duration-1000
+            ${isActive ? 'opacity-40 grayscale-0 scale-110' : 'opacity-20 grayscale scale-100 group-hover:grayscale-0 group-hover:scale-105'}
+          `}
+        />
+      </div>
 
-const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(
-  ({ className, ...props }, ref) => (
-    <h3 ref={ref} className={cn("text-2xl font-semibold leading-none tracking-tight", className)} {...props} />
-  ),
-);
-CardTitle.displayName = "CardTitle";
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/95 z-10" />
 
-const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
-  ({ className, ...props }, ref) => (
-    <p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
-  ),
-);
-CardDescription.displayName = "CardDescription";
+      <div className={`relative h-full flex flex-col p-8 z-20 ${isActive ? 'justify-start' : 'justify-center items-center'}`}>
 
-const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />,
-);
-CardContent.displayName = "CardContent";
+        {/* Active Header */}
+        {isActive && (
+          <div className="flex items-center gap-6 mb-8">
+            <span className="text-6xl font-thin text-white/20 font-mono select-none">0{index + 1}</span>
+            <div>
+              <h2 className="text-4xl font-bold tracking-tight text-white mb-2">{title}</h2>
+              <p className="text-purple-300/80 uppercase tracking-widest text-xs font-semibold">{subtitle}</p>
+            </div>
+          </div>
+        )}
 
-const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("flex items-center p-6 pt-0", className)} {...props} />
-  ),
-);
-CardFooter.displayName = "CardFooter";
+        {/* Inactive Vertical Title */}
+        {!isActive && (
+          <div className="h-full flex flex-col items-center justify-center gap-8">
+            <span className="text-2xl font-mono text-white/40 pb-4 select-none">0{index + 1}</span>
+            <div className="rotate-180 md:-rotate-90 origin-center whitespace-nowrap">
+              <h2 className="text-3xl font-bold tracking-wider text-white/90 flex items-center gap-4 hover:text-purple-300 transition-colors">
+                {title} <Icon className="w-6 h-6" />
+              </h2>
+            </div>
+          </div>
+        )}
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };
+        <AnimatePresence mode="wait">
+          {isActive && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="mt-4 overflow-y-auto pr-6 scrollbar-thin scrollbar-thumb-purple-500/30 scrollbar-track-white/5 h-full pb-32"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {children}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.div>
+  );
+};
+
+export default Card;
