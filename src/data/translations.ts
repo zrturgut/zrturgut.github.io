@@ -2,7 +2,7 @@ export type Language = 'en' | 'nl' | 'tr' | 'es';
 
 export const translations = {
     en: {
-        role: "ai engineer",
+        role: "AI Engineer",
         enter: "enter portfolio",
         location: "amsterdam • available",
         cards: {
@@ -13,13 +13,13 @@ export const translations = {
         },
         sections: {
             programming: "programming",
-            ai_ml: "ai / ml",
+            ai_ml: "AI / ML",
             tools: "tools",
             spoken_languages: "spoken languages"
         }
     },
     nl: {
-        role: "ai engineer",
+        role: "AI Engineer",
         enter: "portfolio openen",
         location: "amsterdam • beschikbaar",
         cards: {
@@ -30,13 +30,13 @@ export const translations = {
         },
         sections: {
             programming: "programmeren",
-            ai_ml: "ai / ml",
+            ai_ml: "AI / ML",
             tools: "tools",
             spoken_languages: "gesproken talen"
         }
     },
     tr: {
-        role: "yapay zeka mühendisi",
+        role: "Yapay Zeka Mühendisi",
         enter: "portfolyoya gir",
         location: "amsterdam • müsait",
         cards: {
@@ -47,13 +47,13 @@ export const translations = {
         },
         sections: {
             programming: "programlama",
-            ai_ml: "yapay zeka / makine öğrenimi",
+            ai_ml: "Yapay Zeka / ML",
             tools: "araçlar",
             spoken_languages: "konuşulan diller"
         }
     },
     es: {
-        role: "ingeniero de ia",
+        role: "Ingeniero de IA",
         enter: "entrar al portafolio",
         location: "ámsterdam • disponible",
         cards: {
@@ -64,7 +64,7 @@ export const translations = {
         },
         sections: {
             programming: "programación",
-            ai_ml: "ia / ml",
+            ai_ml: "IA / ML",
             tools: "herramientas",
             spoken_languages: "idiomas hablados"
         }
