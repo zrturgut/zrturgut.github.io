@@ -19,17 +19,6 @@ const Navigation = () => {
 
             <div className="flex items-center gap-6 pointer-events-auto">
                 <a
-                    href="/resume.pdf"
-                    target="_blank"
-                    className="hidden md:flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 rounded-full border border-white/10 hover:border-purple-500/50 transition-all group"
-                >
-                    <Download className="w-4 h-4 text-purple-400 group-hover:scale-110 transition-transform" />
-                    <span className="text-sm font-bold text-gray-200 group-hover:text-white">CV</span>
-                </a>
-
-                <div className="h-8 w-[1px] bg-white/10 hidden md:block" />
-
-                <a
                     href="https://github.com/zrturgut"
                     target="_blank"
                     rel="noopener noreferrer"
