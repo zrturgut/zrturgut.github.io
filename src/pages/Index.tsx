@@ -119,6 +119,17 @@ const Index = () => {
                     <div className="mb-4">
                       <h3 className="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors mb-2">{project.title}</h3>
                       {project.subtitle && <span className="inline-block px-3 py-1 bg-purple-500/20 text-purple-200 text-xs font-mono rounded-full border border-purple-500/20">{project.subtitle}</span>}
+
+                      {/* Tech Stack Tags */}
+                      {project.technologies && (
+                        <div className="flex flex-wrap gap-2 mt-4">
+                          {project.technologies.map((tech, t) => (
+                            <span key={t} className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded border border-white/10 bg-black/50 text-gray-400 group-hover:border-purple-500/30 group-hover:text-purple-300 transition-colors">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
                     <ul className="space-y-3 text-gray-400 group-hover:text-gray-200 transition-colors mt-auto">
                       {project.details.map((detail, j) => (

@@ -59,7 +59,7 @@ export const resumeData = {
         },
         {
             role: "Founder & Owner",
-            company: "Novadam Taxi Business",
+            company: "Nova Taxi Business",
             period: "Jun 2025 – Present",
             details: [
                 "Founded and managed a small taxi company operating in the Netherlands, Belgium and Germany, handling logistics and customer communication."
@@ -78,7 +78,8 @@ export const resumeData = {
         {
             title: "Generative AI Project Builder",
             subtitle: "Hackathon Hacker – 2nd Place at WTC 40 Hour Hackathon",
-            gif: "https://media.giphy.com/media/26tn33aiTi1jkl6H6/giphy.gif",
+            gif: "https://media.giphy.com/media/kBJyD2u52tDHy/giphy.gif",
+            technologies: ["React", "TypeScript", "OpenAI API", "Tailwind"],
             details: [
                 "Created an AI assistant that instantly generates complete hackathon projects including architecture, backend, frontend, tests and documentation.",
                 "Collaborated closely with teammates to rapidly ideate, prototype and present a functional solution to judges."
@@ -87,7 +88,8 @@ export const resumeData = {
         {
             title: "Human AI Interaction Prototype",
             subtitle: "",
-            gif: "https://media.giphy.com/media/NvVO0lqVd9yP6/giphy.gif",
+            gif: "https://media.giphy.com/media/QtX9S899n88SI/giphy.gif",
+            technologies: ["Python", "Kotlin", "WebSockets", "Furhat SDK"],
             details: [
                 "Built a working prototype of a Furhat social robot, focusing on natural interaction and clear conversational behavior.",
                 "Designed and implemented a supporting web interface to ensure intuitive usability and smooth communication between users and the robot."
@@ -96,7 +98,8 @@ export const resumeData = {
         {
             title: "Liver Disease Classification with Machine Learning",
             subtitle: "Research Project",
-            gif: "https://media.giphy.com/media/TqiwHbFBaZ4ti/giphy.gif",
+            gif: "https://media.giphy.com/media/J1QA62A0Y1hIc/giphy.gif",
+            technologies: ["Python", "scikit-learn", "Pandas", "Matplotlib"],
             details: [
                 "Developed classification models (Random Forest, Gradient Boosting) using Python, scikit learn, pandas, Matplotlib on more than 3500 samples.",
                 "Applied structured experimentation and iteration to improve model reliability and explainability."
@@ -105,7 +108,8 @@ export const resumeData = {
         {
             title: "Text Mining for AI: NLP Model Development",
             subtitle: "Research Project",
-            gif: "https://media.giphy.com/media/U3qYN8S0j3bpK/giphy.gif",
+            gif: "https://media.giphy.com/media/l0HlO7m3c3yZj5vZS/giphy.gif",
+            technologies: ["Python", "BERT", "spaCy", "NLTK", "PyTorch"],
             details: [
                 "Worked in a team to build models for sentiment analysis, topic classification and named entity recognition.",
                 "Used VADER, Naive Bayes, Logistic Regression, Random Forest, spaCy transformers and fine tuned BERT.",
@@ -117,6 +121,6 @@ export const resumeData = {
         languages: ["Python", "R", "SQL", "Prolog", "Bash"],
         tools: ["Git", "VS Code", "PyCharm", "Jupyter", "Neo4j", "GraphDB", "Power BI"],
         libraries: ["NumPy", "pandas", "scikit learn", "PyTorch", "spaCy", "Matplotlib"],
-        spokenLanguages: ["Turkish (Native)", "English (C1)", "Dutch (B2)", "Spanish (A2)"]
+        spokenLanguages: ["Turkish (Native) 🇹🇷", "English (C1) 🇬🇧", "Dutch (B2) 🇳🇱", "Spanish (A2) 🇪🇸"]
     }
 };
