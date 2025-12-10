@@ -1,6 +1,13 @@
 import { Github, Linkedin, Mail, Phone, Home } from "lucide-react";
+import { Language } from "@/data/translations";
 
-const Navigation = ({ onBackToHome }: { onBackToHome: () => void }) => {
+interface NavigationProps {
+    onBackToHome: () => void;
+    lang: Language;
+    setLang: (lang: Language) => void;
+}
+
+const Navigation = ({ onBackToHome, lang, setLang }: NavigationProps) => {
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-8 pointer-events-none">
             <div className="flex items-center gap-4 pointer-events-auto">
@@ -27,6 +34,19 @@ const Navigation = ({ onBackToHome }: { onBackToHome: () => void }) => {
             </div>
 
             <div className="flex items-center gap-4 pointer-events-auto">
+                {/* Language Switcher */}
+                <div className="flex items-center gap-2 mr-4 border-r border-white/10 pr-4">
+                    {(['nl', 'en', 'tr', 'es'] as Language[]).map((l) => (
+                        <button
+                            key={l}
+                            onClick={() => setLang(l)}
+                            className={`text-xs font-mono uppercase transition-colors ${lang === l ? 'text-purple-400 font-bold' : 'text-gray-500 hover:text-white'}`}
+                        >
+                            {l}
+                        </button>
+                    ))}
+                </div>
+
                 <a
                     href="https://github.com/zrturgut"
                     target="_blank"

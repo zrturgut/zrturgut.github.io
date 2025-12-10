@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import ThreeBackground from "@/components/ThreeBackground";
 import Navigation from "@/components/Navigation";
 import { resumeData, sectionBackgrounds } from "@/data/resume";
+import { translations, Language } from "@/data/translations";
 import { Code2, GraduationCap, Briefcase, Terminal } from "lucide-react";
 
 // --- Components ---
@@ -58,14 +59,22 @@ const Typewriter = ({ text, delay = 0 }: { text: string; delay?: number }) => {
       setStarted(true);
     }, delay * 1000);
     return () => clearTimeout(timeout);
-  }, [delay]);
+  }, [delay, text]); // Reset when text changes
+
+  useEffect(() => {
+    if (!text) return;
+    // Reset if text changes to something else
+    setDisplayedText("");
+    // But we need to handle the 'delay' again if we want to restart typing.
+    // For simplicity in this language switch, let's just type immediately if started is true.
+  }, [text]);
 
   useEffect(() => {
     if (!started) return;
     let index = 0;
     const interval = setInterval(() => {
       if (index < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(index));
+        setDisplayedText((prev) => text.slice(0, index + 1));
         index++;
       } else {
         clearInterval(interval);
@@ -207,6 +216,8 @@ const Card = ({ index, title, subtitle, icon: Icon, isActive, onClick, backgroun
 const Index = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
   const [showLanding, setShowLanding] = useState(true);
+  const [lang, setLang] = useState<Language>('nl'); // Default to Dutch
+  const t = translations[lang];
 
   return (
     <div className="bg-black text-white relative min-h-screen font-sans selection:bg-purple-500/30 overflow-hidden">
@@ -235,7 +246,7 @@ const Index = () => {
                 <GlitchText text="zekeriyya" />
               </h1>
               <p className="text-lg md:text-2xl text-purple-200/50 tracking-[0.5em] font-light uppercase h-8 lowercase">
-                <Typewriter text="ai engineer" delay={1.5} />
+                <Typewriter text={t.role} delay={1.5} />
               </p>
             </motion.div>
 
@@ -246,7 +257,7 @@ const Index = () => {
               onClick={() => setShowLanding(false)}
               className="mt-16 px-8 py-3 rounded-full border border-white/10 hover:border-purple-500/50 bg-white/5 hover:bg-white/10 transition-all duration-500 text-sm tracking-widest lowercase text-gray-400 hover:text-white hover:scale-105 z-50"
             >
-              enter portfolio
+              {t.enter}
             </motion.button>
           </motion.div>
         ) : (
@@ -257,15 +268,19 @@ const Index = () => {
             transition={{ duration: 1 }}
             className="flex flex-col min-h-screen"
           >
-            <Navigation onBackToHome={() => setShowLanding(true)} />
+            <Navigation
+              onBackToHome={() => setShowLanding(true)}
+              lang={lang}
+              setLang={setLang}
+            />
             <main className="relative z-10 container mx-auto px-4 py-32 flex-grow h-[120vh]">
               <div className="flex flex-col md:flex-row h-full gap-4 md:gap-0 border border-white/10 rounded-3xl overflow-hidden bg-black/40 backdrop-blur-xl shadow-2xl ring-1 ring-white/5">
 
                 {/* PROJECTS */}
                 <Card
                   index={0}
-                  title="Projects"
-                  subtitle="Selected Works & Research"
+                  title={t.cards.projects.title}
+                  subtitle={t.cards.projects.subtitle}
                   icon={Code2}
                   backgroundImage={sectionBackgrounds.projects}
                   isActive={activeIndex === 0}
@@ -314,8 +329,8 @@ const Index = () => {
                 {/* EXPERIENCE */}
                 <Card
                   index={1}
-                  title="Experience"
-                  subtitle="Career History"
+                  title={t.cards.experience.title}
+                  subtitle={t.cards.experience.subtitle}
                   icon={Briefcase}
                   backgroundImage={sectionBackgrounds.experience}
                   isActive={activeIndex === 1}
@@ -344,8 +359,8 @@ const Index = () => {
                 {/* EDUCATION */}
                 <Card
                   index={2}
-                  title="Education"
-                  subtitle="Academic Background"
+                  title={t.cards.education.title}
+                  subtitle={t.cards.education.subtitle}
                   icon={GraduationCap}
                   backgroundImage={sectionBackgrounds.education}
                   isActive={activeIndex === 2}
@@ -386,8 +401,8 @@ const Index = () => {
                 {/* SKILLS */}
                 <Card
                   index={3}
-                  title="Skills"
-                  subtitle="Technical Proficiency"
+                  title={t.cards.skills.title}
+                  subtitle={t.cards.skills.subtitle}
                   icon={Terminal}
                   backgroundImage={sectionBackgrounds.skills}
                   isActive={activeIndex === 3}
@@ -397,8 +412,8 @@ const Index = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                       {/* Programming Column */}
                       <div>
-                        <h3 className="text-sm uppercase tracking-[0.2em] text-gray-400 mb-8 border-b border-gray-800 pb-2 flex items-center gap-2">
-                          <Terminal className="w-4 h-4" /> Programming
+                        <h3 className="text-sm uppercase tracking-[0.2em] text-gray-400 mb-8 border-b border-gray-800 pb-2 flex items-center gap-2 lowercase">
+                          <Terminal className="w-4 h-4" /> {t.sections.programming}
                         </h3>
                         <ul className="space-y-4">
                           {resumeData.technicalSkills.languages.map((skill, i) => (
@@ -412,8 +427,8 @@ const Index = () => {
 
                       {/* AI / ML Column */}
                       <div>
-                        <h3 className="text-sm uppercase tracking-[0.2em] text-gray-400 mb-8 border-b border-gray-800 pb-2 flex items-center gap-2">
-                          <Code2 className="w-4 h-4" /> AI / ML
+                        <h3 className="text-sm uppercase tracking-[0.2em] text-gray-400 mb-8 border-b border-gray-800 pb-2 flex items-center gap-2 lowercase">
+                          <Code2 className="w-4 h-4" /> {t.sections.ai_ml}
                         </h3>
                         <ul className="space-y-4">
                           {resumeData.technicalSkills.libraries.map((skill, i) => (
@@ -427,8 +442,8 @@ const Index = () => {
 
                       {/* Tools Column */}
                       <div>
-                        <h3 className="text-sm uppercase tracking-[0.2em] text-gray-400 mb-8 border-b border-gray-800 pb-2 flex items-center gap-2">
-                          <Briefcase className="w-4 h-4" /> Tools
+                        <h3 className="text-sm uppercase tracking-[0.2em] text-gray-400 mb-8 border-b border-gray-800 pb-2 flex items-center gap-2 lowercase">
+                          <Briefcase className="w-4 h-4" /> {t.sections.tools}
                         </h3>
                         <ul className="space-y-4">
                           {resumeData.technicalSkills.tools.map((skill, i) => (
@@ -443,7 +458,7 @@ const Index = () => {
 
                     {/* Spoken Languages Row - Image 2 Style */}
                     <div className="mt-auto border-t border-white/10 pt-8">
-                      <h3 className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-6 text-center">Spoken Languages</h3>
+                      <h3 className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-6 text-center lowercase">{t.sections.spoken_languages}</h3>
                       <div className="flex flex-wrap justify-center gap-12 md:gap-24">
                         {resumeData.technicalSkills.spokenLanguages.map((langString, i) => {
                           const parts = langString.split(" ");
