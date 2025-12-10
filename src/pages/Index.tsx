@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThreeBackground from "@/components/ThreeBackground";
+import FluidBackground from "@/components/FluidBackground";
 import Navigation from "@/components/Navigation";
 import { resumeData, sectionBackgrounds } from "@/data/resume";
 import { translations, Language } from "@/data/translations";
@@ -34,8 +35,8 @@ const Index = () => {
       {showGame && <AIStrategyGame onClose={() => setShowGame(false)} />}
       <ProjectModal isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} project={selectedProject} />
 
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <ThreeBackground />
+      <div className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-1000">
+        {showLanding ? <FluidBackground /> : <ThreeBackground />}
       </div>
 
       <div className="fixed top-0 w-full z-40 mt-1 pointer-events-none opacity-50">
@@ -48,44 +49,46 @@ const Index = () => {
             key="landing"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
-            transition={{ duration: 1 }}
-            className="relative z-50 h-screen flex flex-col items-center justify-center p-4 cursor-default"
+            exit={{ opacity: 0, y: -50, filter: "blur(5px)" }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="relative z-50 h-screen flex flex-col items-center justify-center p-4 cursor-default overflow-hidden"
           >
+            {/* Massive Kinetic Typography */}
             <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-center space-y-8"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 1.2, ease: "circOut" }}
+              className="flex flex-col items-center leading-none z-10"
             >
-              <h1 className="text-5xl md:text-8xl font-bold tracking-[0.2em] bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/40 lowercase select-none">
-                <GlitchText text="zekeriyya" />
+              <h1 className="text-[12vw] md:text-[15vw] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-t from-white via-white to-white/50 mix-blend-overlay select-none hover:scale-105 transition-transform duration-700">
+                ZEKERIYYA
               </h1>
-              <div className="space-y-4">
-                <p className="text-lg md:text-2xl text-purple-200/50 tracking-[0.5em] font-light uppercase h-8 lowercase">
-                  <Typewriter text={t.role} delay={1.5} />
-                </p>
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 2.5, duration: 1 }}
-                  className="text-sm md:text-base text-gray-400 font-light max-w-md mx-auto"
-                >
-                  Building digital experiences at the intersection of design and artificial intelligence.
-                </motion.p>
-              </div>
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ delay: 1, duration: 1.5 }}
+                className="h-[2px] bg-white/30 my-4"
+              />
+              <h2 className="text-2xl md:text-4xl font-light tracking-[0.5em] text-white/60 uppercase mix-blend-difference">
+                {t.role}
+              </h2>
             </motion.div>
 
+            {/* Minimalist Enter Trigger */}
             <motion.button
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 3.5, duration: 1 }}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.0, duration: 1 }}
               onClick={() => setShowLanding(false)}
-              className="mt-16 px-8 py-3 rounded-full border border-white/10 hover:border-purple-500/50 bg-white/5 hover:bg-white/10 transition-all duration-500 text-sm tracking-widest lowercase text-gray-400 hover:text-white hover:scale-105 z-50 group flex items-center gap-2"
+              className="absolute bottom-20 group cursor-pointer"
               aria-label="Enter Portfolio"
             >
-              <span>{t.enter}</span>
-              <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all -ml-2 group-hover:ml-0" />
+              <div className="flex flex-col items-center gap-4">
+                <span className="text-xs font-mono uppercase tracking-[0.3em] text-white/50 group-hover:text-white transition-colors duration-300">Enter System</span>
+                <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:scale-110 group-hover:border-white transition-all duration-500 bg-white/5 backdrop-blur-sm">
+                  <ChevronRight className="w-5 h-5 text-white/50 group-hover:text-white transition-colors" />
+                </div>
+              </div>
             </motion.button>
           </motion.div>
         ) : (
