@@ -7,14 +7,15 @@ import { translations, Language } from "@/data/translations";
 import { ChevronRight, Eye, Briefcase, Zap } from "lucide-react";
 import SkillsGrid from "@/components/SkillsGrid";
 import ProjectModal from "@/components/ProjectModal";
-import AIStrategyGame from "@/components/AIStrategyGame";
+import AIStrategyGame from "@/components/AIStrategyGame"; // Keep for now if needed, but we want GameCenter
+import GameCenter from "@/components/GameCenter";
+
 // UI Components
 import PortfolioSection from "@/components/ui/PortfolioSection";
 import TiltCard from "@/components/ui/TiltCard";
 import CustomCursor from "@/components/ui/CustomCursor";
 import GlitchText from "@/components/ui/GlitchText";
 import Typewriter from "@/components/ui/Typewriter";
-import Marquee from "@/components/ui/Marquee";
 import StickyCTA, { ProgressBar } from "@/components/ui/StickyCTA";
 
 // Pro Features
@@ -32,6 +33,7 @@ const Index = () => {
   const [showGame, setShowGame] = useState(false);
 
   const t = translations[lang];
+  const [gameMode, setGameMode] = useState<'none' | 'center' | 'snake'>('none');
 
   return (
     <div className="bg-black text-white relative min-h-screen font-sans selection:bg-purple-500/30 overflow-x-hidden">
@@ -48,7 +50,8 @@ const Index = () => {
       <StickyCTA />
 
       {/* Game & Modal */}
-      {showGame && <AIStrategyGame onClose={() => setShowGame(false)} />}
+      {gameMode === 'center' && <GameCenter onClose={() => setGameMode('none')} onLaunchSnake={() => setGameMode('snake')} />}
+      {gameMode === 'snake' && <AIStrategyGame onClose={() => setGameMode('center')} />}
       <ProjectModal isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} project={selectedProject} />
 
       {/* Global Fluid Background */}
@@ -126,11 +129,11 @@ const Index = () => {
               onBackToHome={() => setShowLanding(true)}
               lang={lang}
               setLang={setLang}
-              onOpenGame={() => setShowGame(true)}
+              onOpenGame={() => setGameMode('center')}
             />
 
             <div className="pt-24 pb-4">
-              <Marquee />
+              {/* Marquee removed */}
             </div>
 
             <main className="relative z-10 w-full">
@@ -226,7 +229,7 @@ const Index = () => {
                                 <p className="text-purple-400">{exp.company}</p>
                               </div>
 
-                              <ul className="space-y-2">
+                              <ul className="space-y-2 md:hidden">
                                 {exp.details.map((detail, j) => (
                                   <li key={j} className="text-gray-400 text-sm flex gap-2">
                                     <span className="text-purple-500 mt-1">▹</span>
