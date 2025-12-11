@@ -14,6 +14,9 @@ export const resumeData = {
             degree: "BSc Artificial Intelligence (Minor in Spanish)",
             period: "2023 – 2026",
             details: [
+                "Specializing in the intersection of computer science, cognitive psychology, and logic to build intelligent systems.",
+                "Developing robust proficiency in Python and algorithm design through hands-on projects in data mining and machine learning.",
+                "Collaborating in multidisciplinary teams to solve complex technical problems, bridging the gap between theory and application.",
                 "Selected coursework: Machine Learning, Data Structures & Algorithms, Applied Programming for AI, Text Mining"
             ]
         },
@@ -43,7 +46,11 @@ export const resumeData = {
             location: "Istanbul, Turkey 🇹🇷",
             degree: "BSc Law",
             period: "2017 – 2020",
-            details: []
+            details: [
+                "Acquired a rigorous foundation in legal theory, case analysis, and formal logic.",
+                "Developed strong analytical and research skills, learning to deconstruct complex systems of rules and arguments.",
+                "Cultivated the ability to articulate structured reasoning, a skill directly transferable to algorithmic thinking and problem-solving."
+            ]
         }
     ],
     experience: [
