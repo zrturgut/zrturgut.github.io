@@ -209,9 +209,9 @@ const Index = () => {
                           )}
                         </div>
 
-                        <div className="order-2 flex flex-col items-center relative z-10">
+                        <div className="order-2 flex flex-col items-center relative z-10 h-full">
                           <div className="w-4 h-4 rounded-full bg-purple-600 ring-4 ring-black border border-white/50 group-hover:scale-125 transition-transform duration-300 shadow-[0_0_15px_rgba(168,85,247,0.5)]" />
-                          {i !== resumeData.experience.length - 1 && <div className="w-[1px] h-32 bg-gradient-to-b from-purple-600/50 to-transparent my-2" />}
+                          {i !== resumeData.experience.length - 1 && <div className="w-[1px] flex-1 min-h-[4rem] bg-gradient-to-b from-purple-600/50 to-transparent my-2" />}
                         </div>
 
                         <div className={`md:block ${i % 2 === 0 ? 'order-3' : 'order-1'} ${i % 2 !== 0 ? 'text-right' : ''}`}>

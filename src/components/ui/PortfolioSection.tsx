@@ -24,7 +24,7 @@ const PortfolioSection = ({ id, title, subtitle, index, children, backgroundImag
         <section
             id={id}
             ref={ref}
-            className="relative min-h-screen flex flex-col items-center py-24 md:py-32 px-4 overflow-hidden border-b border-white/5 last:border-0"
+            className="relative min-h-[50vh] flex flex-col items-center py-24 md:py-32 px-4 overflow-hidden border-b border-white/5 last:border-0"
         >
             {/* Background Image Parallax */}
             {backgroundImage && (
