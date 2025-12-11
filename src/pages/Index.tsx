@@ -99,6 +99,17 @@ const Index = () => {
                 </h2>
               </motion.div>
 
+              {/* Poetic Quote */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.5, duration: 2 }}
+                className="mt-8 text-sm md:text-base font-serif italic text-white/40 tracking-widest max-w-md text-center leading-relaxed"
+              >
+                "Within the digital void,<br />
+                we weave the threads of tomorrow."
+              </motion.p>
+
               {/* Minimalist Enter Trigger */}
               <motion.button
                 initial={{ opacity: 0, y: 50 }}
