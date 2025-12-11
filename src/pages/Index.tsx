@@ -36,7 +36,7 @@ const Index = () => {
   const [gameMode, setGameMode] = useState<'none' | 'center' | 'snake'>('none');
 
   return (
-    <div className="bg-black text-white relative min-h-screen font-sans selection:bg-purple-500/30 overflow-x-hidden">
+    <div className="bg-black text-white relative min-h-screen font-sans selection:bg-purple-500/30">
 
       {/* Pro Features */}
       <AnimatePresence>

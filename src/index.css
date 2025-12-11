@@ -74,7 +74,7 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth;  Removed to fix "hard to scroll" feel */
   }
 
   body {
