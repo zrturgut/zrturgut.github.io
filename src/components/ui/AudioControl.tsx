@@ -46,7 +46,7 @@ const AudioControl = ({ playTrigger }: { playTrigger?: boolean }) => {
     useEffect(() => {
         const originalTitle = document.title;
         if (isPlaying) {
-            document.title = `🎵 ${originalTitle}`;
+            document.title = `🎵 The Lamp Is Low - ${originalTitle}`;
         } else {
             document.title = originalTitle.replace('🎵 ', '');
         }
