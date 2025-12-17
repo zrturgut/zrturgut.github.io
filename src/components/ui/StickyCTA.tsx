@@ -4,7 +4,7 @@ import { MessageSquare } from "lucide-react";
 const StickyCTA = () => {
     return (
         <motion.a
-            href="mailto:zackturgut@gmail.com"
+            href="mailto:z.r.turgut@student.vu.nl"
             title="Contact Me"
             className="fixed bottom-8 right-8 z-50 p-4 bg-white text-black rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:scale-110 transition-transform duration-300 md:bottom-12 md:right-12"
             initial={{ scale: 0, rotate: 180 }}

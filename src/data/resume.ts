@@ -1,12 +1,14 @@
 export const sectionBackgrounds = {
     projects: "https://i.giphy.com/media/L8K62iTDkzGX6/giphy.webp", // Coding Matrix
     research: "https://i.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.webp", // Neural Network
-    experience: "https://i.giphy.com/media/3o7TKsAds5tX5uXJqU/giphy.webp", // City Time Lapse
-    education: "https://i.giphy.com/media/U3qYN8S0j3bpK/giphy.webp", // Space Nebula
-    skills: "https://i.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.webp", // Digital Tech
+    experience: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200", // Corporate Skyscrapers / City
+    education: "https://i.giphy.com/media/U3qYN8S0j3bpK/giphy.webp",
+    volunteering: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&q=80&w=1200", // Community / People
+    skills: "https://i.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.webp",
 };
 
 export const resumeData = {
+    about: "AI student at Vrije Universiteit Amsterdam with a strong interest in software engineering and machine learning. I enjoy developing intelligent systems that solve real world problems. Alongside my studies, I manage a taxi business in the Netherlands, combining entrepreneurship with practical experience.",
     education: [
         {
             institution: "Vrije Universiteit Amsterdam",
@@ -83,29 +85,43 @@ export const resumeData = {
     ],
     projects: [
         {
-            id: "gen-ai-builder",
-            title: "Generative AI Project Builder",
-            subtitle: "Hackathon Award Winner 🏆",
+            id: "hackathon-hacker",
+            title: "Hackathon Hacker",
+            subtitle: "2nd Place | WTC AI Hackathon 🏆",
             gif: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
-            technologies: ["React", "TypeScript", "OpenAI API", "Node.js"],
-            repo: "https://github.com/zrturgut/gen-ai-builder",
+            technologies: ["Python", "Software Architecture", "LLMOps", "GenAI"],
+            repo: "https://github.com/zrturgut",
             details: [
-                "Engineered an autonomous agent system that generates full-stack codebases from a single text prompt.",
-                "Integrated OpenAI's GPT-4 Turbo for high-fidelity code generation, creating frontend, backend, and documentation instantly.",
-                "Secured 2nd Place at the WTC 40-Hour Hackathon for technical complexity and product polish."
+                "Hackathon Hacker is that friend at every virtual networking event who hears your maybe-we-could and five minutes later has a GitHub repo, CI pipeline, and a README that feels like a victory speech.",
+                "You share a half-baked idea and it returns a backend, APIs, data model, frontend mock, and DevOps plan — all packaged in a ZIP file that somehow matches your new level of confidence.",
+                "Each project remembers its own history, so you can come back later and genuinely act like it was always part of your plan."
             ]
         },
         {
-            id: "auto-trading-bot",
-            title: "High-Frequency Crypto Trading Bot",
-            subtitle: "Algorithmic Trading System",
-            gif: "https://images.unsplash.com/photo-1611974765270-ca12586343bb?auto=format&fit=crop&q=80&w=800",
-            technologies: ["Python", "Pandas", "Binance API", "Docker"],
-            repo: "https://github.com/zrturgut/crypto-bot",
+            id: "alma-ai",
+            title: "Alma - Local AI Voice Assistant",
+            subtitle: "Privacy-First LLM Assistant",
+            gif: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=800",
+            technologies: ["Llama 3", "OpenAI Whisper", "Python", "Local RAG"],
+            repo: "https://github.com/zrturgut",
             details: [
-                "Developed a fully automated trading bot capable of executing arbitrage strategies across multiple exchanges.",
-                "Implemented real-time data ingestion and signal processing pipelines using WebSocket streams.",
-                "Backtested strategies on 5+ years of historical data to optimize risk-adjusted returns."
+                "Built a privacy-first AI assistant from scratch using Meta's Llama 3 as the core intelligence engine. The application runs 100% locally on macOS, eliminating the need for cloud APIs.",
+                "Full Privacy: Engineered a completely offline architecture where all data processing happens on-device.",
+                "Voice Interaction: Integrated OpenAI Whisper for real-time, high-accuracy speech recognition.",
+                "Smart Workspace: Developed a 'Projects' system allowing users to define custom personas and context for different workflows."
+            ]
+        },
+        {
+            id: "nlp-text-mining",
+            title: "Text Mining: NLP & Sentiment",
+            subtitle: "NER, Sentiment Analysis, Topic Class.",
+            gif: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800",
+            technologies: ["BERT", "spaCy", "VADER", "Scikit-learn"],
+            repo: "https://github.com/zrturgut",
+            details: [
+                "Worked as part of a team to build and evaluate NLP models for named entity recognition, sentiment analysis, and topic classification.",
+                "Implemented VADER, Naive Bayes, Logistic Regression, Random Forest, spaCy transformers, and a fine-tuned BERT model.",
+                "Best models reached 0.70 weighted F1 for NER, 0.71 F1 for sentiment analysis, and 77.78% accuracy for topic classification."
             ]
         },
         {
@@ -114,50 +130,40 @@ export const resumeData = {
             subtitle: "Social Robotics Prototype",
             gif: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800",
             technologies: ["Python", "Kotlin", "WebSockets", "Furhat SDK"],
-            repo: "https://github.com/zrturgut/human-ai-interaction",
+            repo: "https://github.com/zrturgut",
             details: [
                 "Architected the conversation logic for a Furhat social robot, creating natural, human-like dialogue flow.",
                 "Built a real-time control dashboard using Kotlin and WebSockets for seamless remote operation.",
-                "conducted user studies to validate the effectiveness of the robot's empathetic response system."
+                "Conducted user studies to validate the effectiveness of the robot's empathetic response system."
+            ]
+        }
+    ],
+    volunteering: [
+        {
+            role: "Aurora Student Ambassador",
+            institution: "Aurora Universities",
+            period: "Nov 2024 – Present",
+            details: [
+                "Selected as a key representative for Vrije Universiteit Amsterdam within the Aurora European University Alliance.",
+                "Facilitated international student engagement and policy workshops at major summits in Naples and Copenhagen."
             ]
         },
         {
-            id: "liver-disease-ml",
-            title: "Predictive Healthcare Analytics Module",
-            subtitle: "Medical Research AI",
-            gif: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=800",
-            technologies: ["Python", "XGBoost", "Scikit-learn", "FastAPI"],
-            repo: "https://github.com/zrturgut/liver-disease-classifiction",
+            role: "Student Ambassador",
+            institution: "Vrije Universiteit Amsterdam",
+            period: "Nov 2025 – Present",
             details: [
-                "Trained and deployed high-accuracy classification models (Random Forest, Gradient Boosting) on 3500+ patient records.",
-                "Achieved 94% accuracy in early detection of liver disease indicators through rigorous feature engineering.",
-                "Created an explainable AI (XAI) layer to visualize model decision paths for medical professionals."
+                "Serving as the face of the AI department for prospective talent.",
+                "Conducting curriculum walkthroughs, clarifying technical specializations, and guiding students through their academic decision-making process."
             ]
         },
         {
-            id: "neural-vis",
-            title: "Interactive Neural Network Visualizer",
-            subtitle: "Educational 3D Web App",
-            gif: "https://images.unsplash.com/photo-1558494949-ef526b01201b?auto=format&fit=crop&q=80&w=800",
-            technologies: ["Three.js", "React", "TensorFlow.js", "WebGL"],
-            repo: "https://github.com/zrturgut/neural-vis",
+            role: "ESN Buddy",
+            institution: "ESN The Netherlands",
+            period: "Sep 2025 – Present",
             details: [
-                "Developed a real-time 3D visualization of neural network training processes using Three.js and React.",
-                "Visualized weights, biases, and activation functions in an interactive browser-based playground.",
-                "Optimized WebGL rendering to handle thousands of nodes at 60 FPS on standard devices."
-            ]
-        },
-        {
-            id: "nlp-text-mining",
-            title: "Advanced NLP & Sentiment Engine",
-            subtitle: "Natural Language Processing",
-            gif: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800",
-            technologies: ["PyTorch", "BERT", "HuggingFace", "FastAPI"],
-            repo: "https://github.com/zrturgut/nlp-text-mining",
-            details: [
-                "Fine-tuned BERT models for complex sentiment analysis and named entity recognition on large-scale text corpora.",
-                "Implemented massive parallel data processing pipelines using Python and NLTK.",
-                "Reached 0.70 weighted F1 for NER, 0.71 F1 for sentiment and 77.78 percent accuracy for topic classification."
+                "Mentoring international students during their transition to the Netherlands.",
+                "Facilitating cultural integration and building a supportive community network for incoming scholars."
             ]
         }
     ],

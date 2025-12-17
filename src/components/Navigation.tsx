@@ -1,5 +1,6 @@
 import { Github, Linkedin, Mail, Phone, Home, Gamepad2 } from "lucide-react";
 import { Language } from "@/data/translations";
+import { useUiSound } from "@/hooks/useUiSound";
 
 interface NavigationProps {
     onBackToHome: () => void;
@@ -9,11 +10,14 @@ interface NavigationProps {
 }
 
 const Navigation = ({ onBackToHome, lang, setLang, onOpenGame }: NavigationProps) => {
+    const { playHover, playClick } = useUiSound();
+
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-8 pointer-events-none">
             <div className="flex items-center gap-4 pointer-events-auto">
                 <button
-                    onClick={onBackToHome}
+                    onClick={() => { playClick(); onBackToHome(); }}
+                    onMouseEnter={playHover}
                     className="p-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 group"
                     aria-label="Go Home"
                 >
@@ -50,10 +54,11 @@ const Navigation = ({ onBackToHome, lang, setLang, onOpenGame }: NavigationProps
 
                 <button
                     onClick={onOpenGame}
-                    className="p-2 mr-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 group"
+                    className="relative p-2 mr-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 group overflow-hidden"
                     aria-label="Play Game"
                 >
-                    <Gamepad2 className="w-5 h-5 text-gray-400 group-hover:text-green-400" />
+                    <div className="absolute inset-0 bg-green-500/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse" />
+                    <Gamepad2 className="relative z-10 w-5 h-5 text-gray-400 group-hover:text-green-400 group-hover:drop-shadow-[0_0_8px_rgba(74,222,128,0.8)] transition-all duration-300" />
                 </button>
 
                 <a
@@ -75,7 +80,7 @@ const Navigation = ({ onBackToHome, lang, setLang, onOpenGame }: NavigationProps
                     <Linkedin className="w-5 h-5 text-gray-400 group-hover:text-purple-400" />
                 </a>
                 <a
-                    href="mailto:zackturgut@gmail.com"
+                    href="mailto:z.r.turgut@student.vu.nl"
                     className="p-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 group"
                     aria-label="Email"
                 >

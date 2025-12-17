@@ -1,8 +1,10 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import StaggeredText from "@/components/ui/StaggeredText";
+import RevealWrapper from "@/components/ui/RevealWrapper";
 
 interface PortfolioSectionProps {
-    id: string;
+    id?: string;
     title: string;
     subtitle: string;
     index: number;
@@ -29,13 +31,13 @@ const PortfolioSection = ({ id, title, subtitle, index, children, backgroundImag
             {/* Background Image Parallax */}
             {backgroundImage && (
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-black/80 z-10" />
-                    <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-20" />
+                    <div className="absolute inset-0 bg-black/10 z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/50 z-20" />
                     <motion.img
                         src={backgroundImage}
                         alt=""
                         loading="lazy"
-                        className="w-full h-full object-cover opacity-20 grayscale"
+                        className="w-full h-full object-cover opacity-[0.05] grayscale"
                         initial={{ scale: 1.1 }}
                         whileInView={{ scale: 1 }}
                         transition={{ duration: 1.5 }}
@@ -53,23 +55,23 @@ const PortfolioSection = ({ id, title, subtitle, index, children, backgroundImag
                     <span className="text-6xl md:text-8xl font-thin text-white/5 font-mono absolute -top-12 -left-4 select-none pointer-events-none">
                         0{index + 1}
                     </span>
-                    <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-2 relative z-10">
-                        {title}
-                    </h2>
+
+                    <div className="relative z-10 mb-2">
+                        <StaggeredText
+                            text={title}
+                            className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-2"
+                        />
+                    </div>
+
                     <p className="text-purple-400 uppercase tracking-[0.2em] text-sm font-semibold max-w-xl">
                         {subtitle}
                     </p>
                 </motion.div>
 
                 {/* Children (The main content) */}
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                >
+                <RevealWrapper delay={0.2}>
                     {children}
-                </motion.div>
+                </RevealWrapper>
             </div>
         </section>
     );

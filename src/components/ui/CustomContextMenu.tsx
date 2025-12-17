@@ -42,7 +42,7 @@ const CustomContextMenu = () => {
                         <span>Copy Link</span>
                         <span className="text-[10px] text-gray-600">CMD+C</span>
                     </button>
-                    <a href="mailto:zackturgut@gmail.com" className="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-white/10 rounded transition-colors flex items-center justify-between">
+                    <a href="mailto:z.r.turgut@student.vu.nl" className="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-white/10 rounded transition-colors flex items-center justify-between">
                         <span>Contact Me</span>
                         <span className="text-[10px] text-gray-600">@</span>
                     </a>

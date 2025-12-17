@@ -7,7 +7,7 @@ const Header = () => {
         <a href="#" className="text-foreground font-semibold text-lg tracking-tight hover:text-accent transition-colors">
           ZEKERIYYA TURGUT
         </a>
-        
+
         <nav className="flex items-center gap-6">
           <a
             href="https://github.com/zrturgut"
@@ -28,7 +28,7 @@ const Header = () => {
             <Linkedin size={20} />
           </a>
           <a
-            href="mailto:zekeriyya.turgut@student.vu.nl"
+            href="mailto:z.r.turgut@student.vu.nl"
             className="text-muted-foreground hover:text-accent transition-colors"
             aria-label="Email"
           >

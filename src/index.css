@@ -78,8 +78,26 @@
   }
 
   body {
-    @apply bg-black text-white font-sans antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
     font-family: 'Inter', sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply tracking-tight;
+  }
+
+  h1 {
+    letter-spacing: -0.05em;
+  }
+
+  p {
+    letter-spacing: -0.01em;
   }
 }
 

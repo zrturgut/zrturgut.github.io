@@ -1,71 +1,73 @@
-import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 const CustomCursor = () => {
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
-    const cursorX = useMotionValue(-100);
-    const cursorY = useMotionValue(-100);
-
-    const springConfig = { damping: 20, stiffness: 300, mass: 0.5 };
-    const cursorXSpring = useSpring(cursorX, springConfig);
-    const cursorYSpring = useSpring(cursorY, springConfig);
+    const [isClicking, setIsClicking] = useState(false);
 
     useEffect(() => {
-        const moveCursor = (e: MouseEvent) => {
-            cursorX.set(e.clientX);
-            cursorY.set(e.clientY);
+        const updateMousePosition = (e: MouseEvent) => {
+            setMousePosition({ x: e.clientX, y: e.clientY });
         };
 
         const handleMouseOver = (e: MouseEvent) => {
-            if ((e.target as HTMLElement).tagName.toLowerCase() === 'a' ||
-                (e.target as HTMLElement).tagName.toLowerCase() === 'button' ||
-                (e.target as HTMLElement).closest('a') ||
-                (e.target as HTMLElement).closest('button')) {
-                setIsHovering(true);
-            } else {
-                setIsHovering(false);
-            }
+            const target = e.target as HTMLElement;
+            // Check for clickable elements or specific classes
+            const isClickable =
+                target.tagName === 'BUTTON' ||
+                target.tagName === 'A' ||
+                target.closest('button') ||
+                target.closest('a') ||
+                target.classList.contains('cursor-pointer') ||
+                window.getComputedStyle(target).cursor === 'pointer';
+
+            setIsHovering(!!isClickable);
         };
 
-        window.addEventListener("mousemove", moveCursor);
-        window.addEventListener("mouseover", handleMouseOver);
+        const handleMouseDown = () => setIsClicking(true);
+        const handleMouseUp = () => setIsClicking(false);
+
+        window.addEventListener('mousemove', updateMousePosition);
+        window.addEventListener('mouseover', handleMouseOver);
+        window.addEventListener('mousedown', handleMouseDown);
+        window.addEventListener('mouseup', handleMouseUp);
+
         return () => {
-            window.removeEventListener("mousemove", moveCursor);
-            window.removeEventListener("mouseover", handleMouseOver);
+            window.removeEventListener('mousemove', updateMousePosition);
+            window.removeEventListener('mouseover', handleMouseOver);
+            window.removeEventListener('mousedown', handleMouseDown);
+            window.removeEventListener('mouseup', handleMouseUp);
         };
     }, []);
 
     return (
-        <div className="pointer-events-none fixed inset-0 z-[9999] hidden md:block mix-blend-difference">
-            <motion.div
-                className="fixed top-0 left-0 bg-white rounded-full"
-                style={{
-                    translateX: cursorXSpring,
-                    translateY: cursorYSpring,
-                    width: isHovering ? 60 : 16,
-                    height: isHovering ? 60 : 16,
-                    marginTop: isHovering ? -30 : -8,
-                    marginLeft: isHovering ? -30 : -8,
-                    opacity: 0.8
-                }}
-            />
-            {/* Trailing 'Ghost' */}
-            <motion.div
-                className="fixed top-0 left-0 border border-white rounded-full"
-                animate={{
-                    width: isHovering ? 80 : 40,
-                    height: isHovering ? 80 : 40,
-                    marginTop: isHovering ? -40 : -20,
-                    marginLeft: isHovering ? -40 : -20,
-                }}
-                transition={{ duration: 0.2 }}
-                style={{
-                    translateX: cursorX, // Direct tracking for trail
-                    translateY: cursorY,
-                    opacity: 0.3
-                }}
-            />
-        </div>
+        <>
+            <div className="fixed inset-0 pointer-events-none z-[9999] hidden md:block mix-blend-difference">
+                {/* Main Cursor Dot */}
+                <motion.div
+                    className="fixed top-0 left-0 w-3 h-3 rounded-full bg-white"
+                    animate={{
+                        x: mousePosition.x - 6,
+                        y: mousePosition.y - 6,
+                        scale: isClicking ? 0.8 : isHovering ? 0 : 1,
+                    }}
+                    transition={{ type: "spring", stiffness: 1000, damping: 50, mass: 0.1 }}
+                />
+
+                {/* Fluid Follower Ring */}
+                <motion.div
+                    className="fixed top-0 left-0 w-12 h-12 rounded-full border border-white/50 backdrop-invert"
+                    animate={{
+                        x: mousePosition.x - 24,
+                        y: mousePosition.y - 24,
+                        scale: isClicking ? 0.8 : isHovering ? 1.5 : 1,
+                        backgroundColor: isHovering ? "rgba(255, 255, 255, 1)" : "rgba(255, 255, 255, 0)",
+                    }}
+                    transition={{ type: "spring", stiffness: 300, damping: 25, mass: 0.5 }}
+                />
+            </div>
+        </>
     );
 };
 

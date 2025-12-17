@@ -1,9 +1,11 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { useUiSound } from "@/hooks/useUiSound";
 
 const MagneticButton = ({ children, className }: { children: React.ReactNode, className?: string }) => {
     const ref = useRef<HTMLDivElement>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
+    const { playHover, playClick } = useUiSound();
 
     const handleMouse = (e: React.MouseEvent) => {
         const { clientX, clientY } = e;
@@ -21,6 +23,8 @@ const MagneticButton = ({ children, className }: { children: React.ReactNode, cl
         <motion.div
             ref={ref}
             onMouseMove={handleMouse}
+            onMouseEnter={playHover}
+            onClick={playClick}
             onMouseLeave={reset}
             animate={{ x: position.x, y: position.y }}
             transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
