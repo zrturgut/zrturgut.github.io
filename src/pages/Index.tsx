@@ -177,10 +177,39 @@ const Index = () => {
 
               {/* 0. ABOUT SECTION */}
               <PortfolioSection id="about" index={0} title="about" subtitle="introduction" backgroundImage={sectionBackgrounds.projects}>
-                <div className="max-w-4xl mx-auto">
-                  <p className="text-2xl md:text-4xl font-light leading-relaxed text-gray-200 lowercase">
-                    ai student at vrije universiteit amsterdam with a strong interest in software engineering and machine learning. i enjoy developing intelligent systems that solve real world problems. alongside my studies, i manage a taxi business in the netherlands, combining entrepreneurship with practical experience.
-                  </p>
+                <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                  <div className="order-2 md:order-1 relative group">
+                    <div className="absolute inset-0 bg-purple-500/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                    <img
+                      src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&q=80&w=800"
+                      alt="Abstract Tech Visualization"
+                      className="relative z-10 w-full aspect-square object-cover rounded-2xl grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl border border-white/10"
+                    />
+                    <div className="absolute -bottom-6 -right-6 font-display text-9xl text-white/5 font-bold z-0 pointer-events-none">
+                      AI
+                    </div>
+                  </div>
+
+                  <div className="order-1 md:order-2 space-y-8">
+                    <p className="text-2xl md:text-3xl font-light leading-relaxed text-gray-200 lowercase font-sans">
+                      <span className="text-white font-semibold">Hello, I'm Zekeriyya.</span> An <span className="text-purple-400 font-medium">ai student</span> at vrije universiteit amsterdam with a strong interest in software engineering and machine learning.
+                    </p>
+                    <p className="text-xl text-gray-400 leading-relaxed lowercase font-sans">
+                      i enjoy developing intelligent systems that solve real world problems. alongside my studies, i manage a taxi business in the netherlands, combining entrepreneurship with practical experience.
+                    </p>
+
+                    <div className="flex gap-4 pt-4">
+                      <div className="flex flex-col">
+                        <span className="text-4xl font-display font-bold text-white">3+</span>
+                        <span className="text-sm text-purple-400 font-mono lowercase tracking-widest mt-1">years exp</span>
+                      </div>
+                      <div className="w-px bg-white/10 h-12 mx-4" />
+                      <div className="flex flex-col">
+                        <span className="text-4xl font-display font-bold text-white">10+</span>
+                        <span className="text-sm text-purple-400 font-mono lowercase tracking-widest mt-1">projects</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </PortfolioSection>
 
