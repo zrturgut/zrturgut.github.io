@@ -87,7 +87,7 @@ const Navigation = ({ onBackToHome, lang, setLang, onOpenGame }: NavigationProps
                     <Mail className="w-5 h-5 text-gray-400 group-hover:text-purple-400" />
                 </a>
                 <a
-                    href="tel:+31612345678"
+                    href="tel:+31643154866"
                     className="p-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 group"
                     aria-label="Phone"
                 >
