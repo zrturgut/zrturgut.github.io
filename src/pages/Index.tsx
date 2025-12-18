@@ -197,18 +197,6 @@ const Index = () => {
                     <p className="text-xl text-gray-400 leading-relaxed lowercase font-sans">
                       i enjoy developing intelligent systems that solve real world problems. alongside my studies, i manage a taxi business in the netherlands, combining entrepreneurship with practical experience.
                     </p>
-
-                    <div className="flex gap-4 pt-4">
-                      <div className="flex flex-col">
-                        <span className="text-4xl font-display font-bold text-white">3+</span>
-                        <span className="text-sm text-purple-400 font-mono lowercase tracking-widest mt-1">years exp</span>
-                      </div>
-                      <div className="w-px bg-white/10 h-12 mx-4" />
-                      <div className="flex flex-col">
-                        <span className="text-4xl font-display font-bold text-white">10+</span>
-                        <span className="text-sm text-purple-400 font-mono lowercase tracking-widest mt-1">projects</span>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </PortfolioSection>
@@ -321,7 +309,7 @@ const Index = () => {
 
               {/* 3. EDUCATION SECTION */}
               <PortfolioSection id="education" index={3} title={t.cards.education.title} subtitle={t.cards.education.subtitle} backgroundImage={sectionBackgrounds.education}>
-                <div className="max-w-4xl mx-auto max-h-[60vh] overflow-y-auto education-scroll pr-4 space-y-6">
+                <div className="max-w-4xl mx-auto space-y-12">
                   {resumeData.education.map((edu, i) => (
                     <article key={i} className="relative group">
                       <div className="grid grid-cols-[auto_1fr] md:grid-cols-[150px_auto_1fr] gap-6 md:gap-12 items-start">
