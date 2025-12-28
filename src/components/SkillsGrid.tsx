@@ -1,4 +1,4 @@
-import { resumeData } from "@/data/resume";
+import { getResumeData } from "@/data/resume";
 import { Code2, Brain, Wrench, Globe } from "lucide-react";
 
 const SkillCategory = ({ title, icon: Icon, skills, colorClass }: { title: string, icon: any, skills: string[], colorClass: string }) => (
@@ -23,6 +23,8 @@ const SkillCategory = ({ title, icon: Icon, skills, colorClass }: { title: strin
 );
 
 const SkillsGrid = () => {
+    const resumeData = getResumeData('en'); // Default to English for skills
+
     return (
         <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
             {/* Languages */}
