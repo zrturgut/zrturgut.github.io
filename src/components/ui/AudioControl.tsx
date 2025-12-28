@@ -7,7 +7,7 @@ const AudioControl = ({ playTrigger }: { playTrigger?: boolean }) => {
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     useEffect(() => {
-        // Laurindo Almeida - The Lamp Is Low (Preview)
+        // Audio initialization
         audioRef.current = new Audio('https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/ad/8c/aa/ad8caa3e-18ea-a1bd-4011-f1cb5b823b35/mzaf_9663511433178614089.plus.aac.p.m4a');
         audioRef.current.loop = true;
         audioRef.current.volume = 0.5;
