@@ -42,17 +42,14 @@ const AudioControl = ({ playTrigger }: { playTrigger?: boolean }) => {
         }
     }, [playTrigger]);
 
-    // Update document title
     useEffect(() => {
-        const originalTitle = document.title;
         if (isPlaying) {
-            document.title = `🎵 The Lamp Is Low - ${originalTitle}`;
+            audioRef.current?.play().catch(error => {
+                console.log("Audio playback failed:", error);
+                setIsPlaying(false);
+            });
         } else {
-            document.title = originalTitle.replace('🎵 ', '');
-        }
-        // Cleanup not strictly necessary as we want to revert only on unmount or pause
-        return () => {
-            if (!isPlaying) document.title = originalTitle.replace('🎵 ', '');
+            audioRef.current?.pause();
         };
     }, [isPlaying]);
 

@@ -42,7 +42,7 @@ const data = {
                 ]
             },
             {
-                institution: "Universit`a degli Studi di Napoli Federico II",
+                institution: "Università degli Studi di Napoli Federico II",
                 location: "Naples, Italy 🇮🇹",
                 degree: "Erasmus+ Workshop: Governing Urban Metabolism",
                 period: "May 2024",

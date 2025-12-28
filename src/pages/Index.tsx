@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import FluidBackground from "@/components/FluidBackground";
 import Navigation from "@/components/Navigation";
-import { resumeData, sectionBackgrounds } from "@/data/resume";
+import { getResumeData, sectionBackgrounds } from "@/data/resume";
 import { translations, Language } from "@/data/translations";
 import { ChevronRight, Eye, Briefcase, Zap } from "lucide-react";
 import SkillsGrid from "@/components/SkillsGrid";
@@ -45,6 +45,7 @@ const Index = () => {
   const [shouldPlayMusic, setShouldPlayMusic] = useState(true);
 
   const t = translations[lang];
+  const resumeData = getResumeData(lang);
   const [gameMode, setGameMode] = useState<'none' | 'center' | 'snake'>('none');
 
   return (
@@ -192,10 +193,10 @@ const Index = () => {
 
                   <div className="order-1 md:order-2 space-y-8">
                     <p className="text-2xl md:text-3xl font-light leading-relaxed text-gray-200 lowercase font-sans">
-                      <span className="text-white font-semibold">Hello, I'm Zekeriyya.</span> An <span className="text-purple-400 font-medium">ai student</span> at vrije universiteit amsterdam with a strong interest in software engineering and machine learning.
+                      <span className="text-white font-semibold">{t.about.hello}</span> <span className="text-purple-400 font-medium">{t.about.student}</span> {t.about.university}
                     </p>
                     <p className="text-xl text-gray-400 leading-relaxed lowercase font-sans">
-                      i enjoy developing intelligent systems that solve real world problems. alongside my studies, i manage a taxi business in the netherlands, combining entrepreneurship with practical experience.
+                      {t.about.description}
                     </p>
                   </div>
                 </div>
@@ -359,7 +360,7 @@ const Index = () => {
                     <div key={i} className="bg-gradient-to-br from-purple-900/20 to-black p-8 md:p-10 rounded-3xl border border-purple-500/20 flex flex-col justify-center gap-4 group hover:border-purple-500/50 transition-all">
                       <div className="flex items-center gap-3 text-purple-400 mb-2">
                         <Zap className="w-6 h-6 text-yellow-500" />
-                        <h3 className="text-sm font-mono uppercase tracking-widest">Recognitions</h3>
+                        <h3 className="text-sm font-mono uppercase tracking-widest">{t.sections.recognitions}</h3>
                       </div>
                       <h4 className="text-2xl font-bold text-white group-hover:text-purple-200 transition-colors">{achievement.title}</h4>
                       <p className="text-gray-400 leading-relaxed">{achievement.description}</p>
@@ -373,7 +374,7 @@ const Index = () => {
 
 
               {/* 4. VOLUNTEERING SECTION */}
-              <PortfolioSection id="volunteering" index={4} title="volunteering" subtitle="community & leadership" backgroundImage={sectionBackgrounds.volunteering}>
+              <PortfolioSection id="volunteering" index={4} title={t.cards.volunteering.title} subtitle={t.cards.volunteering.subtitle} backgroundImage={sectionBackgrounds.volunteering}>
                 <div className="max-w-4xl mx-auto space-y-12">
                   {resumeData.volunteering?.map((vol, i) => (
                     <article key={i} className="relative group">
