@@ -40,7 +40,7 @@ const StaggeredText: React.FC<StaggeredTextProps> = ({ text, className = "", del
 
     return (
         <motion.h2
-            className={`flex flex-wrap ${className}`}
+            className={`flex overflow-hidden ${className}`}
             variants={container}
             initial="hidden"
             whileInView="visible"
