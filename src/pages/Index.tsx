@@ -369,6 +369,35 @@ const Index = () => {
                     </div>
                   ))}
                 </div>
+
+                {/* Certifications Cards - Dynamically Mapped */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+                  {resumeData.certifications?.map((cert, i) => (
+                    <div key={i} className="bg-gradient-to-br from-blue-900/20 to-black p-8 rounded-3xl border border-blue-500/20 flex flex-col justify-start gap-4 group hover:border-blue-500/50 transition-all relative overflow-hidden">
+                      <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <Briefcase className="w-24 h-24 text-blue-500" />
+                      </div>
+                      <div className="flex items-center gap-3 text-blue-400 mb-2 relative z-10">
+                        <h3 className="text-sm font-mono uppercase tracking-widest">Certification</h3>
+                      </div>
+                      <h4 className="text-xl font-bold text-white group-hover:text-blue-200 transition-colors relative z-10 leading-tight">{cert.title}</h4>
+                      <div className="flex flex-col gap-1 relative z-10">
+                        <span className="text-gray-400 text-sm">{cert.issuer}</span>
+                        <span className="text-blue-400/60 text-xs font-mono">{cert.date}</span>
+                        {cert.credentialId && <span className="text-gray-600 text-[10px] font-mono mt-1">ID: {cert.credentialId}</span>}
+                      </div>
+
+                      <div className="flex flex-wrap gap-2 mt-2 relative z-10">
+                        {cert.skills.map(skill => (
+                          <span key={skill} className="text-[10px] font-mono border border-blue-500/30 bg-blue-500/5 px-2 py-1 rounded text-blue-300">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
               </PortfolioSection>
 
 
@@ -432,7 +461,7 @@ const Index = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </div >
   );
 };
 export default Index;

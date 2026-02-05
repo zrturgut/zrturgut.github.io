@@ -57,6 +57,20 @@ export const resumeData = {
     ],
     experience: [
         {
+            role: "AI Engineer Intern",
+            company: "Odido",
+            period: "Feb 2026 – Present",
+            details: [
+                "Preparing, structuring, and validating network topology data for AI training and testing.",
+                "Supporting the design and training of an AI language model that understands network structures.",
+                "Testing and improving the model's ability to interpret natural language questions about networks.",
+                "Collaborating on the integration between the AI model and visualization tools for automatic topology diagrams.",
+                "Performance evaluation, fine-tuning, and documentation of the model.",
+                "Collaborating with the Access Network team to ensure data quality and practical applicability.",
+                "Tech Stack: Python, machine-learning frameworks, NLP, network databases, visualization libraries, API integrations."
+            ]
+        },
+        {
             role: "IT Support",
             company: "Vrije Universiteit Amsterdam",
             period: "Nov 2025 – Present",
@@ -178,6 +192,27 @@ export const resumeData = {
             title: "2nd Place @ WTC 40 Hour Hackathon",
             role: "Hackathon Hacker",
             description: "Built 'Generative AI Project Builder' - an AI assistant that instantly generates complete hackathon projects."
+        }
+    ],
+    certifications: [
+        {
+            title: "Microsoft Azure AI Essentials: Workloads and Machine Learning on Azure",
+            issuer: "Microsoft",
+            date: "Feb 2026",
+            skills: ["Microsoft Azure"]
+        },
+        {
+            title: "AWS Essential Training for Developers",
+            issuer: "Amazon Web Services (AWS)",
+            date: "Jan 2026",
+            skills: ["AWS Lambda", "Amazon EC2", "Amazon Web Services (AWS)"]
+        },
+        {
+            title: "Lean Six Sigma Foundations",
+            issuer: "NASBA",
+            date: "Dec 2025",
+            credentialId: "140940",
+            skills: ["Lean Six Sigma"]
         }
     ]
 };
