@@ -56,20 +56,7 @@ export const resumeData = {
         }
     ],
     experience: [
-        {
-            role: "AI Engineer Intern",
-            company: "Odido",
-            period: "Feb 2026 – Present",
-            details: [
-                "Preparing, structuring, and validating network topology data for AI training and testing.",
-                "Supporting the design and training of an AI language model that understands network structures.",
-                "Testing and improving the model's ability to interpret natural language questions about networks.",
-                "Collaborating on the integration between the AI model and visualization tools for automatic topology diagrams.",
-                "Performance evaluation, fine-tuning, and documentation of the model.",
-                "Collaborating with the Access Network team to ensure data quality and practical applicability.",
-                "Tech Stack: Python, machine-learning frameworks, NLP, network databases, visualization libraries, API integrations."
-            ]
-        },
+
         {
             role: "IT Support",
             company: "Vrije Universiteit Amsterdam",
